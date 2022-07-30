@@ -1,0 +1,91 @@
+@import "../Global.scss";
+
+.container {
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   position: relative;
+   // display: flex;
+   // justify-content: flex-end
+   // background-color: navy
+}
+
+.background{
+   width: 120vw;
+   // max-height: '100%';
+   position: absolute;
+   z-index: -1;
+   // top:250px;
+   // left:100px;
+}
+
+.panel{
+   height: 60%;
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   border-radius: 16px;
+   padding:2rem .5rem;
+   // width: 500px;
+   background-color:#fff;
+   // position: absolute;
+   // right:0
+   // display:flex;
+   // flex-direction: column;
+   // align-items: center;
+}
+.title{
+   font-size:32px;
+   font-weight: bold;
+   color:$PrimaryDark;
+   display: flex;
+   margin-bottom:1rem;
+   align-items: center;
+   & svg {
+      transform: scale(.6)
+   }   
+}
+.input {
+   width: 70%;
+   margin:.5rem 0
+}
+
+.toolbar {
+   width: 70%;
+  font-size: 12px;
+  color:$Border;
+  display:flex;
+  margin:.5rem 0;
+  align-items: center
+}
+
+.btn {
+   width: 70%;
+   margin:.5rem 0;
+   & button {
+      width: 100%;
+      background-color:$PrimaryDark
+   }
+}
+.remeber{
+   width:15px;
+   height:15px;
+   border:2px solid $Grey;
+   margin-right: 8px;
+   border-radius:4px;
+   cursor: pointer;
+}
+.rem {
+   background-color:$Border
+}
+
+.signup{
+   & button {
+      background-color:$Google
+   }
+}
+.div{
+   width: 70%;
+   height: 1px;
+   // display: block;
+   background-color:$Border;
+   margin:1.5rem 0;
+}
