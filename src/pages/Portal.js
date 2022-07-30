@@ -6,11 +6,12 @@ import {
   Link,
 } from "react-router-dom";
 import { useState } from "react";
-import header from "../style/layout/Header.module.scss";//JSON
+import portal from "../style/layout/Portal.module.scss";//JSON
 import Logo from "../resource/SVG/Logo";
 import Header from '../layout/header'
 function Portal() {
    const [user,setUser]= useState({name:'',img:''})
+   const navigate = useNavigate()
    const hand = () =>{
       if(user.name.length>1){
          setUser({...user,name:''})
@@ -20,10 +21,10 @@ function Portal() {
      
    }
   return (
-    <div className={header.body}>
+    <div className={portal.body}>
       <Header user={user} setUser={setUser}/>
-      <div className={header.content}>
-         <button onClick={hand}>{user.name.length>1?"Logout":"Login"}</button>
+      <div className={portal.content}>
+         {/* <button  className='btn btn-primary' onClick={hand}>{user.name.length>1?"Logout":"Login"}</button> */}
         <Outlet />
       </div>
     </div>
