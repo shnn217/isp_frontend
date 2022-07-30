@@ -1,0 +1,44 @@
+@import "../Glogal.scss";
+
+.body {
+   height: 100vh;
+   width: 100vw;
+}
+
+.header {
+   text-align: center;
+   height:80px;
+   // width: 100%;
+   display:flex;
+   justify-content:space-between;
+   align-items: center;
+   padding:0 2rem;
+   background-color: $PrimaryDark;
+
+   
+   .QA{
+      color:#fff;
+      font-size: 24px;
+      cursor: pointer;
+      &:hover{
+         opacity: .6;
+         transition: opacity .3s ease-in-out
+      }
+   }
+}
+.logo{
+   cursor: pointer;
+   width:120px;
+   display:flex;
+   align-items:center;
+   justify-content: space-between;
+   text-decoration: none;
+   .logoName {
+      font-weight: bold;
+      color: #fff;
+      font-size:38px;
+   }
+   & svg{
+      transform: scale(.8)
+   }
+}
