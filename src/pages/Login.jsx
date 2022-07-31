@@ -66,7 +66,7 @@ function Login({ user, setUser }) {
               set({ username: "shnn217", password: "password" });
             }}
           >
-            <Logo color={'#365E9D'}/>ISP
+            <Logo style={{marginRight: "-5px"}} color={'#365E9D'}/><i>ISP</i>
             {/* Sign In */}
           </div>
           <div className={`${classes.input} `}>
