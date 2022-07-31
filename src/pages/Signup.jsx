@@ -4,7 +4,7 @@ import { useState } from "react";
 import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 
-function Login({ user, setUser }) {
+function Signup({ user, setUser }) {
   const User = localStorage.getItem("Remeberme");
   const [show, setShow] = useState(false);
   const [remeber, setRe] = useState(User ? true : false);
@@ -82,6 +82,17 @@ function Login({ user, setUser }) {
           </div>
           <div className={`${classes.input} `}>
             <input
+              placeholder="Email"
+              type={"text"}
+              className={` form-control `}
+              name="email"
+              id="email"
+              value={data.email}
+              onChange={handle}
+            />
+          </div>
+          <div className={`${classes.input} `}>
+            <input
               placeholder="Password"
               type={show ? "text" : "password"}
               className={` form-control `}
@@ -91,27 +102,24 @@ function Login({ user, setUser }) {
               onChange={handle}
             />
           </div>
-          <div className={`${classes.toolbar}`}>
-            <div
-              className={`${classes.remeber} ${remeber ? classes.rem : ""}`}
-              onClick={() => {
-                setRe(!remeber);
-              }}
-            ></div>{" "}
-            Remeber me
+          <div className={`${classes.input} `}>
+            <input
+              placeholder="Confirm Password"
+              type={show ? "text" : "password"}
+              className={` form-control `}
+              name="Cpassword"
+              id="Cpassword"
+              value={data.Cpassword}
+              onChange={handle}
+            />
           </div>
-          <div className={classes.btn}>
-            <button className="btn btn-primary" onClick={submit}>
-              SignIn
+          
+          <div className={`${classes.btn} ${classes.signup}`}>
+            <button className="btn btn-danger w-100" onClick={submit}>
+             Sign up
             </button>{" "}
           </div>
-          <div className={classes.div}></div>
-          <div className={classes.btn}>
-            <button className="btn btn-primary">LinkedIn</button>{" "}
-          </div>
-          <div className={`${classes.btn} ${classes.signup}`}>
-            <Link className="btn btn-danger w-100" to='/login/signup'>Sign Up</Link>{" "}
-          </div>
+            <div className={classes.toolbar}>Already have you own account?</div>
         </div>
       </div>
 
@@ -122,4 +130,4 @@ function Login({ user, setUser }) {
   );
 }
 
-export default Login;
+export default Signup;
