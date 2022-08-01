@@ -1,8 +1,12 @@
+import React from "react";
 import classes from "../style/pages/Login.module.scss";
 import Image from "../resource/image/ISPlogin.png";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+
+
+
 
 function Login({ user, setUser }) {
   const User = localStorage.getItem("Remeberme");
@@ -17,6 +21,26 @@ function Login({ user, setUser }) {
     let name = e.target.name;
     set({ ...data, [name]: e.target.value });
   }
+
+
+
+  const openLinkedinPage = useCallback(() => {
+    const linkedinAuthUrl = 'https://www.linkedin.com/oauth/v2/authorization';
+    const redirectUri = 'callback';
+    
+    const params = {
+      response_type: 'code',
+      client_id: '782f5ko8ei1qf7',
+      redirect_uri: `http://localhost:8000/${redirectUri}`,
+      // scope: 'r_liteprofile r_emailaddress',
+    };
+
+    const urlParams = new URLSearchParams(params).toString();
+    console.log(urlParams);
+
+    window.location = `${linkedinAuthUrl}?${urlParams}&scope=r_liteprofile%20r_emailaddress`;
+    
+  }, [])
 
   function submit(e) {
     //第一步先檢查我設計定的唯一帳密是否正確
@@ -107,7 +131,7 @@ function Login({ user, setUser }) {
           </div>
           <div className={classes.div}></div>
           <div className={classes.btn}>
-            <button className="btn btn-primary">LinkedIn</button>{" "}
+            <button className="btn btn-primary" onClick={openLinkedinPage}>LinkedIn</button>{" "}
           </div>
           <div className={`${classes.btn} ${classes.signup}`}>
             <Link className="btn btn-danger w-100" to='/login/signup'>Sign Up</Link>{" "}
