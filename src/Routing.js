@@ -2,7 +2,10 @@ import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter, Route, Routes, Navigate,useNavigate } from "react-router-dom";
 import Portal from "./pages/Portal";
 import Login from "./pages/Login";
-import SignUp from './pages/Signup'
+import SignUp from './pages/Signup';
+
+
+
 export default function Routing() {
   let UserInfo = localStorage.getItem('User')
   const [loading, setLoading] = useState(true);
