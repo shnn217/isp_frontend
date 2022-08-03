@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Routes, Navigate,useNavigate } from "react-router
 import Portal from "./pages/Portal";
 import Login from "./pages/Login";
 import SignUp from './pages/Signup';
-
-
+import Home from './pages/Home'
+import "./style/Global.scss"
 
 export default function Routing() {
   let UserInfo = localStorage.getItem('User')
@@ -15,7 +15,7 @@ export default function Routing() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Portal user={user} serUser={setUser}/>}>
-          <Route index element={<>home</>} />
+          <Route index element={<Home user={user}/>} />
           <Route path={"login"} >
             <Route index element={<Login setUser={setUser} />} />
             <Route path="signup" element={<SignUp user={user} />} />

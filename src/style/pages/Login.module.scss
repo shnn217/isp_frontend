@@ -106,5 +106,11 @@
    position: fixed;
    bottom: 0;
    width: 100%;
-   font-size:12px
+   font-size:12px 
+} 
+.back{
+   margin:'0 auto';
+   width:70%;
+   display: flex;
+   justify-content:center;
 }
