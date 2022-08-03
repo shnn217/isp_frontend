@@ -14,8 +14,8 @@
    align-items: center;
    padding:0 2rem;
    background-color: $PrimaryDark;
-
-
+   position: relative;
+   
    .QA{
       color:#fff;
       font-size: 24px;
@@ -23,6 +23,26 @@
       &:hover{
          opacity: .6;
          transition: opacity .3s ease-in-out
+      }
+   }
+   .searchbar{
+      position:absolute;
+      left:200px;
+      border:1px solid #fff;
+      border-radius:50px;
+      padding: 5px 1rem;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      input{
+         background:transparent;
+         border:none;
+         color:#fff;
+         margin-left: 1rem;
+         &:focus{
+            border:none;
+            outline: none;
+         }
       }
    }
 }
@@ -41,5 +61,55 @@
    }
    & svg{
       transform: scale(.8)
+   }
+}
+.avatar{
+   width:50px;
+   height:50px;
+   cursor: pointer;
+   position: relative;
+   // border:3px solid #000;
+   // overflow: hidden;
+  
+   img {
+      border-radius: 50px;
+      width:50px;
+      height:50px;
+      &:hover{
+         opacity: .8;
+         transition: opacity .3s ease-in-out
+      }
+   }
+   .panel{
+      background-color: #fff;
+      padding:10px 1rem;
+      position: absolute;
+      border-radius: 8px;
+      right:10px;
+      width:120px;
+      top:55px;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      .row{
+         margin: .5rem 0;
+         text-align: initial;
+         width: 100%;
+         svg{
+            margin-right: 1rem;
+         }
+         &:hover{
+            color:$PrimaryDark
+         }
+      }
+      .name{
+         // color:#838383;。
+      }
+      .logout{
+         color:red;
+         &:hover{
+            color:red;
+            font-weight: 400;
+
+         }
+      }
    }
 }

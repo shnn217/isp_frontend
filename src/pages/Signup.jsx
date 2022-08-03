@@ -51,6 +51,7 @@ function Signup({ user, setUser }) {
     }
   }
 
+
   return (
     <div className={`${classes.container} `}>
       <div
@@ -119,7 +120,7 @@ function Signup({ user, setUser }) {
              Sign up
             </button>{" "}
           </div>
-            <div className={classes.toolbar}>Already have you own account?</div>
+            <Link to="/login" className={`${classes.toolbar} ${classes.back}`}>Already have you own account?</Link>
         </div>
       </div>
 
