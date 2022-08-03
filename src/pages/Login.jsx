@@ -31,12 +31,12 @@ function Login({ user, setUser }) {
     const params = {
       response_type: 'code',
       client_id: '782f5ko8ei1qf7',
-      redirect_uri: `http://localhost:8000/${redirectUri}`,
+      redirect_uri: `http://localhost:8000/api/${redirectUri}`,
       // scope: 'r_liteprofile r_emailaddress',
     };
 
     const urlParams = new URLSearchParams(params).toString();
-    console.log(urlParams);
+    
 
     window.location = `${linkedinAuthUrl}?${urlParams}&scope=r_liteprofile%20r_emailaddress`;
     
