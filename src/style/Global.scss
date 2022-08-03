@@ -2,4 +2,25 @@ $PrimaryDark: #365E9D;
 $Primary: #DDE6F5;
 $Border:#76767C;
 $Google:#E8233A;
-$Grey:#D9D9D9
+$Grey:#D9D9D9;
+
+.custom-btn {
+   border-radius: 8px;
+   background:$PrimaryDark;
+   width: 120px;
+   color:#fff;
+   text-align: center;
+   font-weight: bold;
+   display: flex;
+   padding:5px 0 ;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   svg{
+      margin-right:.5rem
+   }
+   &:hover{
+      opacity: 0.8;
+      transition: opacity .3s ease-in-out
+   }
+}
