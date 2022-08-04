@@ -15,7 +15,7 @@ function Homepage({ user }) {
       phone:'(+44) 0739458371639',
       company: 'Uk city bank Inc.',
       jobtitle:'App designer engineer',
-      location:'London, West Midlands'
+      location:'London'
    })
    const questions = [
       {
