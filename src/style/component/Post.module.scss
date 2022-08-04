@@ -1,0 +1,167 @@
+@import "../Global.scss";
+
+
+.modal {
+   width: 600px;
+   // background:#fff;
+   // height: 1500px;
+   // border-radius: 1rem;
+}
+.create.post{
+   padding:1rem 2rem;
+}
+.post{
+   background:#fff;
+   padding:0rem 2rem;
+   margin:0 0 2rem 0;
+   border-radius:1rem;
+   // height: 500px;
+   .input {
+      // background:$GreyLight;
+      border-radius:.5rem;
+      border:1px solid $GreyLight;
+      padding: .5rem;
+      textarea{
+         background:transparent;
+         width:100%;
+         border:none;
+         &:focus{
+            outline:none
+         }
+      }
+   }
+   h4{
+      text-align:center;
+      padding:1rem 0;
+      // border-bottom: 1px solid $GreyLight;
+   }
+   .upload{
+      // border: 1px solid $GreyLight;
+      width:100%;
+      margin:1rem 0;
+      height:60px;
+      border-radius: .5rem;
+      font-weight: 500;
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      justify-content:center;
+      background:$Secondary;
+      // background-opacity: .7;
+      color:#fff;
+      svg{
+         margin-right: 1rem;
+      }
+      &:hover{
+         opacity: .8;
+         color:#fff;
+         transition: all .3s ease-in-out;
+      }
+   }
+   .preview.upload{
+      height: 300px;
+      background:rgb(44, 44, 44);
+      img{
+         max-width: 100%;
+         max-height: 100%;
+      }
+   }
+   .submit{
+      width:100%;
+      margin-bottom: 1rem;
+      padding:.5rem
+   }
+   .user{
+      display: flex;
+      height:70px;
+      width: 100%;
+      padding-top: 1rem;
+      img{
+         cursor: pointer;
+         border-radius:50%;
+         width:50px;
+         height:50px;
+         &:hover{
+            opacity: .9;
+         }
+      }
+      .userinfo{
+       margin-left: 1rem;
+       color:rgba(0,0,0,.8);
+       .name{
+         cursor: pointer;
+         font-weight:500;
+         font-size: 18px;
+         svg{
+            margin-left:.5rem
+         }
+         &:hover{
+            opacity: .9;
+         }
+       }
+       .jobtitle{
+         cursor: pointer;
+         text-decoration: underline;
+         color:#858585
+       }
+      }
+      
+   }
+   .content{
+      min-height:50px;
+      // padading:'5re'
+   }
+   .image{
+      max-width: 100%;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      background:#000;
+      cursor: pointer;
+      &:hover{
+         opacity: 0.9;
+      }
+      img{
+         max-width: 100%;
+         max-height: 100%;
+      }
+   }
+   .howmany{
+      // border-top: 1px solid $GreyLight;
+      margin-top: .5rem;
+      border-bottom: 1px solid $GreyLight;
+      padding:5px 0;
+      .likeNum{
+         display: flex;
+         align-items: center;
+         svg{
+            margin-right: .5rem;
+         }
+      }
+   }
+   .toolbar{
+      display: flex;
+      font-size:18px;
+      flex-wrap: wrap;
+    
+      font-weight: 450;
+      .block{
+         padding:5px 0 ;
+         flex-grow: 1;
+         margin:5px 0;
+         border-radius:4px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         color:rgb(44, 44, 44);
+         svg{
+            margin:0 .75rem 0 0;
+         }
+         &:hover{
+            background:rgba(0,0,0,.2);
+            transition:all .3s ease-in-out
+         }
+      }
+   }
+}
