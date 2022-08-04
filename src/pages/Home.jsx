@@ -13,30 +13,6 @@ import {
 } from "react-icons/fc";
 
 function Homepage({ user }) {
-<<<<<<< HEAD
-   const [profile, set] = useState({
-      university: 'University of Birmingham',
-      major: 'MSc Computer Science',
-      email: 'ericlin1234@gmail.com',
-      brithday: '02/17/1991',
-      phone:'(+44) 0739458371639',
-      company: 'Uk city bank Inc.',
-      jobtitle:'App designer engineer',
-      location:'London'
-   })
-   const questions = [
-      {
-         title: 'How to apply PSW visa'
-      },
-      {
-         title: 'How to exchange international car liscence'
-      },
-      {
-         title: 'How to apply PSW visa'
-      },
-      {
-         title: 'How to exchange international car liscence'
-=======
   const [profile, set] = useState({
     university: "University of Birmingham",
     major: "MSc Computer Science",
@@ -45,7 +21,7 @@ function Homepage({ user }) {
     phone: "(+44) 0739458371639",
     company: "Uk city bank Inc.",
     jobtitle: "App designer engineer",
-    location: "London, West Midlands",
+    location: "London",
   });
   const questions = [
     {
@@ -81,7 +57,6 @@ function Homepage({ user }) {
         image:
           "https://i.pinimg.com/564x/3f/86/fc/3f86fcc2b0b2dd0fb0e90d6590abaf19.jpg",
         jobtitle: "UI/UX",
->>>>>>> 4dd5b4c69f179863896495ebbed3ee4f4dd0b715
       },
       id: "12003022---12",
       image:
