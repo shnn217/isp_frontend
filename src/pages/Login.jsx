@@ -61,7 +61,7 @@ function Login({ user, setUser }) {
           university: "University of Birmingham",
           major: "MSc Computer Science",
           email: "ericlin1234@gmail.com",
-          brithday: "02/17/1991",
+          brithday: "1991-02-17",
           phone: "(+44) 0739458371639",
           company: "Uk city bank Inc.",
           jobtitle: "App designer engineer",
@@ -75,7 +75,8 @@ function Login({ user, setUser }) {
         university: "University of Birmingham",
         major: "MSc Computer Science",
         email: "ericlin1234@gmail.com",
-        brithday: "02/17/1991",
+        //bootstrap的datepicker格式是下面這樣,你能的話就是統一
+        brithday: "1991-02-17",
         phone: "(+44) 0739458371639",
         company: "Uk city bank Inc.",
         jobtitle: "App designer engineer",
