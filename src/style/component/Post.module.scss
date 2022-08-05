@@ -73,9 +73,9 @@
    }
    .user{
       display: flex;
-      height:70px;
+      // height:70px;
       width: 100%;
-      padding-top: 1rem;
+      padding: 1rem 0;
       img{
          cursor: pointer;
          border-radius:50%;
@@ -88,6 +88,9 @@
       .userinfo{
        margin-left: 1rem;
        color:rgba(0,0,0,.8);
+      div{
+         height:25px;
+      }
        .name{
          cursor: pointer;
          font-weight:500;
@@ -108,8 +111,8 @@
       
    }
    .content{
-      min-height:50px;
-      // padading:'5re'
+      // min-height:50px;
+      padding:.5rem 0
    }
    .image{
       max-width: 100%;

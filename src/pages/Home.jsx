@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import post from "../style/component/Post.module.scss";
 import classes from "../style/pages/Home.module.scss";
@@ -22,6 +22,7 @@ function Homepage({ user }) {
     company: "Uk city bank Inc.",
     jobtitle: "App designer engineer",
     location: "London, West Midlands",
+    image: 'https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg',
   });
   const questions = [
     {
@@ -50,7 +51,7 @@ function Homepage({ user }) {
     },
   ];
 
-  const [posts,setPosts] = useState([
+  const [posts, setPosts] = useState([
     {
       user: {
         name: "Wang",
@@ -58,7 +59,7 @@ function Homepage({ user }) {
           "https://i.pinimg.com/564x/3f/86/fc/3f86fcc2b0b2dd0fb0e90d6590abaf19.jpg",
         jobtitle: "UI/UX",
       },
-      id: "12003022---12",
+      id: "120030221qew12",
       image:
         "https://i.pinimg.com/736x/d9/8e/c0/d98ec0b448f2381d00c842d3f86b383d.jpg",
       captions: "what a car..",
@@ -71,7 +72,7 @@ function Homepage({ user }) {
           "https://i.pinimg.com/736x/59/b8/83/59b8831a4fa6bea47c9c75a5aa5381ef.jpg",
         jobtitle: "Sales",
       },
-      id: "12a1200313022---12",
+      id: "12a1200313022fqrq12",
       image: "",
       captions: "I'm Iron man.",
       num_like: 13,
@@ -86,8 +87,20 @@ function Homepage({ user }) {
       image:
         "https://i.pinimg.com/564x/51/c9/3e/51c93e0a70e8ea6b3e10224cac8715a4.jpg",
       captions: "",
-      id: "120we203022-q--12",
+      id: "120we203022-qe12grdhu-qwe12",
       num_like: 10,
+    },
+    {
+      user: {
+        name: "Amy",
+        image:
+          "https://i.pinimg.com/564x/05/49/96/05499652752bc2e3137f860c9164fbd9.jpg",
+        jobtitle: "Designer",
+      },
+      id: "12a1200313022fqrq12",
+      image: "",
+      captions: "!?",
+      num_like: 43,
     },
   ]);
 
@@ -100,7 +113,7 @@ function Homepage({ user }) {
             <Savequestions questions={questions} />
           </div>
           <div className={classes.modal}>
-            <CreatePost user={user} setPosts={setPosts} posts={posts}/>
+            <CreatePost user={user} setPosts={setPosts} posts={posts} />
             {posts.map((p) => (
               <POST p={p} />
             ))}
@@ -116,11 +129,11 @@ function Homepage({ user }) {
 
 export default Homepage;
 
-function CreatePost({ user,setPosts,posts}) {
+export function CreatePost({ user, setPosts, posts }) {
   const [data, set] = useState({
-   image:'',
-   captions:'',
-   
+    image: '',
+    captions: '',
+
   });
   async function newfilesUpload(e) {
     //設定檔案大小限制
@@ -141,7 +154,7 @@ function CreatePost({ user,setPosts,posts}) {
       if (imageFile.size < max_size) {
         // console.log(imageFile.size < max_size);
         reader.onload = function (upload) {
-          set({...data,image:upload.target.result});
+          set({ ...data, image: upload.target.result });
           // let wowo = valid.images;
         };
         reader.readAsDataURL(imageFile);
@@ -161,30 +174,30 @@ function CreatePost({ user,setPosts,posts}) {
     }
   }
 
-  function submit () {
+  function submit() {
 
-   setPosts([
+    setPosts([
       {
-         user:user,
-         image:data.image,
-         captions:data.captions,
-         id:`203${data.captions}`,
-         num_like:0
+        user: user,
+        image: data.image,
+        captions: data.captions,
+        id: `203${data.captions}`,
+        num_like: 0
       },
       ...posts
-   ])
-   set(
+    ])
+    set(
       {
-         image:'',
-         captions:'',
+        image: '',
+        captions: '',
       }
-   )
+    )
   }
 
-  const handle = (e) =>{
-   let name =e.target.name
-   let value=e.target.value
-   set({...data,[name]:value})
+  const handle = (e) => {
+    let name = e.target.name
+    let value = e.target.value
+    set({ ...data, [name]: value })
   }
   return (
     <div className={`${post.post} ${post.create} `}>
@@ -223,10 +236,10 @@ function CreatePost({ user,setPosts,posts}) {
         </label>
       ) : (
         <label htmlFor={"image-file"} className={`${post.preview} ${post.upload}`}>
-         <img src={data.image} alt="" />
+          <img src={data.image} alt="" />
         </label>
       )}
-      <div className={`${post.submit} custom-btn `} onClick={() =>submit()}>POST</div>
+      <div className={`${post.submit} custom-btn `} onClick={() => submit()}>POST</div>
     </div>
   );
 }
@@ -236,7 +249,7 @@ export function POST({ p }) {
   return (
     <div className={post.post} key={`post_${p.id}`}>
       <div className={post.user}>
-        <img src={p.user.image} alt="" />
+        <Link to={`/profile/${p.id}?name=${p.user.name}&image=${p.user.image}`}><img src={p.user.image} alt="" /></Link>
         <div className={post.userinfo}>
           <div className={post.name}>
             {p.user.name}
@@ -276,17 +289,19 @@ export function POST({ p }) {
 }
 
 export function Profile({ profile, user }) {
+  const location = useLocation()
+  const ProfilePage = !location.pathname.includes('me') && location.pathname.includes('profile')
   return (
     <div className={classes.profile}>
       <div className={classes.avatar}>
-        <img src={user.image} alt={user.name} />
-        <div className={`${classes.follow} custom-btn`}>
+        {ProfilePage ? <img src={ProfilePage ? profile.image : user.image} alt={user.name} /> : <Link to="/profile/me"><img src={ProfilePage ? profile.image : user.image} alt={user.name} /></Link>}
+        {ProfilePage ? <div className={`${classes.follow} custom-btn`}>
           <FaPlus />
           FOLLOW
-        </div>
+        </div> : null}
       </div>
       <div className={classes.info}>
-        <h4>{user.name}</h4>
+        <h4>{ProfilePage ? profile.name : user.name}</h4>
 
         <div className={classes.row}>
           <div className={classes.title}>Brithday:</div>
@@ -343,26 +358,32 @@ export function Recommendation() {
     {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
+      id:'123lfla',
+    },
+    {
+      name: "Johnson",
+      jobtitle: "UI/UX designer",
+      id:'123lfsdasla',
+    },
+    {
+      name: "Ashton",
+      jobtitle: "QA",
+      id:'123lqdafla',
     },
     {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
+      id:'123lffafla',
     },
     {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
+      id:'123lfla',
     },
     {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
-    },
-    {
-      name: "Amy Wang",
-      jobtitle: "UI/UX designer",
-    },
-    {
-      name: "Amy Wang",
-      jobtitle: "UI/UX designer",
+      id:'123lfla',
     },
   ];
   return (
@@ -371,7 +392,8 @@ export function Recommendation() {
       {connection
         .filter((a, index) => (open ? true : index < 4))
         .map((q, index) => (
-          <div
+          <Link
+            to={`/profile/${q.id}`}
             className={`${classes.row} ${classes.row2}`}
             key={`quse_${index}`}
             title={q.title}
@@ -381,7 +403,7 @@ export function Recommendation() {
               <div>{q.name}</div>
               <div>{q.jobtitle}</div>
             </div>
-          </div>
+          </Link>
         ))}
       <div className={classes.morebtn} onClick={() => set(!open)}>
         {open ? "Hide" : "More"}

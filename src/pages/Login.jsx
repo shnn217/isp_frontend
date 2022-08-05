@@ -57,16 +57,30 @@ function Login({ user, setUser }) {
       localStorage.setItem(
         "User",
         JSON.stringify({
-          name: "Eric Lin",
-          image:
-            "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
+          name:'Eric Lin',
+          university: "University of Birmingham",
+          major: "MSc Computer Science",
+          email: "ericlin1234@gmail.com",
+          brithday: "02/17/1991",
+          phone: "(+44) 0739458371639",
+          company: "Uk city bank Inc.",
+          jobtitle: "App designer engineer",
+          location: "London, West Midlands",
+          image:'https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg',
         })
       );
       //把資訊也順便丟進去變數裡面
       setUser({
-        name: "Eric Lin",
-        image:
-          "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
+        name:'Eric Lin',
+        university: "University of Birmingham",
+        major: "MSc Computer Science",
+        email: "ericlin1234@gmail.com",
+        brithday: "02/17/1991",
+        phone: "(+44) 0739458371639",
+        company: "Uk city bank Inc.",
+        jobtitle: "App designer engineer",
+        location: "London, West Midlands",
+        image:'https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg',
       });
       //把畫面倒回首頁
       navigate("/");
