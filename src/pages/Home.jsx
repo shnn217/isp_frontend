@@ -21,8 +21,10 @@ function Homepage({ user }) {
     phone: "(+44) 0739458371639",
     company: "Uk city bank Inc.",
     jobtitle: "App designer engineer",
+
     location: "London, West Midlands",
     image: 'https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg',
+
   });
   const questions = [
     {
