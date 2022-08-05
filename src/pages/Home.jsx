@@ -17,7 +17,7 @@ function Homepage({ user }) {
     university: "University of Birmingham",
     major: "MSc Computer Science",
     email: "ericlin1234@gmail.com",
-    brithday: "02/17/1991",
+    brithday: "1991-02-17",
     phone: "(+44) 0739458371639",
     company: "Uk city bank Inc.",
     jobtitle: "App designer engineer",

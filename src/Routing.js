@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profie";
+import Setting from './pages/Setting'
 import "./style/Global.scss";
 
 export default function Routing() {
@@ -25,6 +26,7 @@ export default function Routing() {
       <Routes>
         <Route path="/" element={<Portal user={user} serUser={setUser} />}>
           <Route index element={<Home user={user} />} />
+          <Route  path={"Setting"} element={<Setting user={user} setUser={setUser} />} />
           <Route path={"login"}>
             <Route index element={<Login setUser={setUser} />} />
             <Route path="signup" element={<SignUp user={user} />} />
