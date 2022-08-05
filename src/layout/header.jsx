@@ -30,19 +30,19 @@ function Header(props) {
           <img src={user.image} alt="" onClick={() => set(!open)} />
           {open ? (
             <div className={header.panel} onClick={() => set(!open)}>
-              <div className={`${header.name} ${header.row}`}>
+              <Link to={'/profile/me'} className={`${header.name} ${header.row}`}>
                 <AiOutlineUser />
                 {user.name}
-              </div>
+              </Link>
 
-              <div className={header.row}>
+              <Link to='/setting' className={header.row}>
                 <AiOutlineSetting />
                 Setting
-              </div>
-              <div className={header.row}>
+              </Link>
+              <Link to='/F&Q' className={header.row}>
                 <AiOutlineQuestionCircle />
                 F&Q
-              </div>
+              </Link>
               <Link to='/login' className={`${header.logout} ${header.row}`}>
                 <AiOutlineLogout />
                 Logout

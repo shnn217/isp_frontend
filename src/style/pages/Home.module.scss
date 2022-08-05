@@ -71,6 +71,8 @@
       white-space:nowrap;
       text-overflow:ellipsis;
       overflow:hidden;
+      text-decoration: none;
+      color:$PrimaryDark;
       svg{
          margin-right: .5rem;
       }
@@ -132,6 +134,7 @@
    img{
       width: 200px;
       height: 200px;
+      display: block;
       border-radius: 50%;
       border: 10px solid #fff;
       cursor: pointer;

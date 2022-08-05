@@ -73,6 +73,7 @@
       border-radius: 50px;
       width:50px;
       height:50px;
+      border: 5px solid #fff;
       &:hover{
          opacity: .8;
          transition: opacity .3s ease-in-out
@@ -80,28 +81,35 @@
    }
    .panel{
       background-color: #fff;
-      padding:10px 1rem;
+      padding:5px 1rem;
       position: absolute;
       z-index: 5;
       border-radius: 8px;
       right:10px;
-      width:120px;
+      width:160px;
       top:55px;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       .row{
-         margin: .5rem 0;
+         margin: 1rem 0;
          text-align: initial;
          width: 100%;
+         display:flex;
+         font-size:18px;
+         align-items: center;
+         text-decoration: none;
+         // background-color:$GreyLight;
+         color:rgba(0, 0, 0, 0.8);
+         border-radius:.5rem;
+         padding:5px .5rem;
          svg{
-            margin-right: 1rem;
+            margin-right: 1.5rem;
          }
          &:hover{
-            color:$PrimaryDark
+            color:$PrimaryDark;
+            background-color:$GreyLight;
          }
       }
-      .name{
-         // color:#838383;。
-      }
+      
       .logout{
          color:red;
          &:hover{
