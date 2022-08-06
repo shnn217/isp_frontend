@@ -137,7 +137,7 @@ function Profilepage({ user }) {
         },
       ])
     }else{
-      set(user)
+      set({...profile,...user})
       setPosts(
         [
           {
@@ -166,7 +166,7 @@ function Profilepage({ user }) {
         ]
       )
     }
-  },[location])
+  },[location,location.search])
 
 
   return (
