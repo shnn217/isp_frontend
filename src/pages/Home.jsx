@@ -361,31 +361,37 @@ export function Recommendation() {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
       id:'123lfla',
+      image:'https://i.pinimg.com/564x/bd/ab/a5/bdaba50ec93e924d5c80fef291b26549.jpg'
     },
     {
       name: "Johnson",
       jobtitle: "UI/UX designer",
       id:'123lfsdasla',
+      image:'https://i.pinimg.com/564x/99/8a/c1/998ac15e3291a7712ba43c93e8aecc18.jpg'
     },
     {
       name: "Ashton",
       jobtitle: "QA",
       id:'123lqdafla',
+      image:'https://i.pinimg.com/564x/00/fe/e5/00fee590be02538c19a4114611fc8bfd.jpg'
     },
     {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
       id:'123lffafla',
+      image:'https://i.pinimg.com/564x/2f/d2/1a/2fd21a918c579563e297402f6aae908c.jpg'
     },
     {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
       id:'123lfla',
+      image:'https://i.pinimg.com/564x/55/43/32/554332dc73ba78f30416e00c9cb9430c.jpg'
     },
     {
       name: "Amy Wang",
       jobtitle: "UI/UX designer",
       id:'123lfla',
+      image:'https://i.pinimg.com/564x/10/c9/56/10c9567eeeb0c4ac81a528be21325cef.jpg'
     },
   ];
   return (
@@ -395,12 +401,13 @@ export function Recommendation() {
         .filter((a, index) => (open ? true : index < 4))
         .map((q, index) => (
           <Link
-            to={`/profile/${q.id}`}
+            to={`/profile/${q.id}?name=${q.name}&image=${q.image}`}
             className={`${classes.row} ${classes.row2}`}
             key={`quse_${index}`}
             title={q.title}
           >
-            <AiOutlineUser size={32} />
+            <img src={q.image} alt="" />
+            {/* <AiOutlineUser size={32} /> */}
             <div>
               <div>{q.name}</div>
               <div>{q.jobtitle}</div>
