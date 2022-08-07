@@ -166,5 +166,98 @@
             transition:all .3s ease-in-out
          }
       }
+      .block.blockOpen{
+         background:rgba(0,0,0,.2);
+      }
+   }
+   .commentCon.close{
+      height:0;
+      padding:0rem;
+      overflow:hidden;
+      border-top: 0px solid $GreyLight;
+   }
+   .commentCon{
+      height:100%;
+      transition: all .3s ease-in-out;
+      border-top: 1px solid $GreyLight;
+      padding: 1rem 0;
+      img{
+         cursor: pointer;
+         width:35px;
+         height:35px;
+         border-radius: 50%;
+         &:hover{
+            transition:all .3 ease-in-out;
+            opacity:.8
+         }
+      }
+      
+     
+   }
+}
+.create{
+   display:flex;
+   align-items: center;
+   margin:0 0 .5rem 0;
+   img{
+      cursor: pointer;
+      width:35px;
+      height:35px;
+      border-radius: 50%;
+      &:hover{
+         transition:all .3 ease-in-out;
+         opacity:.8
+      }
+   }
+   .input{
+      width: 100%;
+      margin:0 1rem ;
+      border:none;
+      border-radius:2rem;
+      padding: .5rem;
+      background:rgba(0, 0, 0,.1);
+      input {
+         background: transparent;
+         border: none;
+         color: #000;
+         margin-left: .5rem;
+         &:focus {
+           border: none;
+           outline: none;
+         }
+       }
+   }
+}
+.comment{
+   margin-bottom:1rem;
+   display: flex;
+  
+   .avatar{
+      img{
+         cursor: pointer;
+         width:35px;
+         height:35px;
+         border-radius: 50%;
+         &:hover{
+            transition:all .3 ease-in-out;
+            opacity:.8
+         }
+      }
+   }
+   .content{
+      padding:.25rem 1rem;
+      border-radius:1rem;
+      // width: 100%;
+      background:rgba(0, 0, 0,.1);
+      margin:0 1rem;
+      .commentTitle{
+         
+         font-weight:500;
+         cursor: pointer;
+         &:hover{
+            transition:all .3 ease-in-out;
+            opacity:.8
+         }
+      }
    }
 }

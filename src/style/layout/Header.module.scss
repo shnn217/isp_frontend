@@ -1,9 +1,5 @@
 @import "../Global.scss";
 
-.body {
-  height: 100vh;
-  width: 100vw;
-}
 
 .header {
   text-align: center;
@@ -14,7 +10,10 @@
   align-items: center;
   padding: 0 2rem;
   background-color: $PrimaryDark;
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: calc(100% - 0rem);
+  z-index: 10;
 
   .QA {
     color: #fff;
@@ -105,7 +104,7 @@
       text-align: initial;
       width: 100%;
       display: flex;
-      font-size: 18px;
+      font-size: 16px;
       align-items: center;
       text-decoration: none;
       // background-color:$GreyLight;
@@ -113,7 +112,7 @@
       border-radius: 0.5rem;
       padding: 5px 0.5rem;
       svg {
-        margin-right: 1.5rem;
+        margin-right: 1rem;
       }
       &:hover {
         color: $PrimaryDark;
