@@ -8,6 +8,7 @@ import {
   AiOutlineLogout,
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
+import {MdForum} from 'react-icons/md';
 import { useState } from "react";
 
 
@@ -25,6 +26,9 @@ function Header(props) {
         <AiOutlineSearch />
         <input type="text" placeholder="username" />
       </div>
+      <Link to="/topics" className={header.forum} title='Topics'>
+        <MdForum/>
+      </Link>
       {user.image ? (
         <div className={header.avatar}>
           <img src={user.image} alt="" onClick={() => set(!open)} />

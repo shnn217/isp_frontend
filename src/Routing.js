@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter,
   Route,
@@ -11,6 +11,7 @@ import SignUp from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profie";
 import Setting from './pages/Setting'
+import Topics from './pages/Topics'
 import "./style/Global.scss";
 
 export default function Routing() {
@@ -33,6 +34,10 @@ export default function Routing() {
             <Route index element={<Navigate to="/profile/me" />} />
             <Route path="me" element={<Profile user={user} />} />
             <Route path=":pid" element={<Profile user={user} />} />
+          </Route>
+          <Route path={"topics"}>
+            <Route index element={<Topics  user={user}/>} />
+            {/* <Route path=":tid" element={<Profile user={user} />} /> */}
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
