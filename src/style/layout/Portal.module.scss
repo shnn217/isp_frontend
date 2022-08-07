@@ -12,12 +12,12 @@
    // overflow-x: hidden;
    // display: none;
    margin-top:80px;
-   height: calc(100% - 80px);
+   height: calc(100% );
 }
 .Logincontent {
    width: 100vw;
    overflow: hidden;
-   height: 100%
+   height:calc(100% + 80px);
    // background-color: red;
    // height: calc(100%);
 }

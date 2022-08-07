@@ -128,7 +128,7 @@ export default function POST({ p }) {
 export function AddComment ({text,setText,addcomment}) {
    const User = JSON.parse(localStorage.getItem('User'))
    return (
-      <div className={post.create}>
+      <div className={post.createComment}>
       <img src={User.image} alt="" />
       <form className={post.input} onSubmit={addcomment}>
         <input type="text" value={text} onChange={(e)=>{setText(e.target.value)}}  placeholder={'Leave something...'} />

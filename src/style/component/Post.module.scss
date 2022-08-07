@@ -195,8 +195,9 @@
      
    }
 }
-.create{
-   display:flex;
+
+.createComment{
+   display: flex;
    align-items: center;
    margin:0 0 .5rem 0;
    img{
@@ -206,7 +207,7 @@
       border-radius: 50%;
       &:hover{
          transition:all .3 ease-in-out;
-         opacity:.8
+         opacity:.8;
       }
    }
    .input{
@@ -225,7 +226,7 @@
            border: none;
            outline: none;
          }
-       }
+      }
    }
 }
 .comment{
