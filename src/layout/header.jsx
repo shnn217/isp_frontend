@@ -8,6 +8,7 @@ import {
   AiOutlineLogout,
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
+import {MdForum} from 'react-icons/md';
 import { useState } from "react";
 import BlankUser from "../resource/image/blank-profile-picture.png";
 
@@ -26,6 +27,9 @@ function Header(props) {
         <AiOutlineSearch />
         <input type="text" placeholder="username" />
       </div>
+      <Link to="/topics" className={header.forum} title='Topics'>
+        <MdForum/>
+      </Link>
       {user.first_name ? (
         <div className={header.avatar}>
           <img src={user.profile_img?user.profile_img:BlankUser} alt="user" onClick={() => set(!open)} />
