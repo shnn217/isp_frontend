@@ -12,6 +12,8 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profie";
 import Setting from './pages/Setting'
 import Topics from './pages/Topics'
+import TopicsList from "./pages/component/TopicList";
+import TopicView from "./pages/component/TopicView";
 import "./style/Global.scss";
 
 export default function Routing() {
@@ -35,9 +37,9 @@ export default function Routing() {
             <Route path="me" element={<Profile user={user} />} />
             <Route path=":pid" element={<Profile user={user} />} />
           </Route>
-          <Route path={"topics"}>
-            <Route index element={<Topics  user={user}/>} />
-            {/* <Route path=":tid" element={<Profile user={user} />} /> */}
+          <Route path={"topics"} element={<Topics user={user} serUser={setUser} />}>
+            <Route index element={<TopicsList  user={user}/>} />
+            <Route path=":tid" element={<TopicView user={user} />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

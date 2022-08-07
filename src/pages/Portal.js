@@ -11,7 +11,7 @@ import portal from "../style/layout/Portal.module.scss"; //JSON
 import Logo from "../resource/SVG/Logo";
 import Header from "../layout/header";
 
-const scrollToRef = (ref) => window.scrollTo(-80, ref.current.offsetTop);
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop-80);
 
 function Portal({ user, setUser }) {
   const container = useRef(null);
@@ -34,12 +34,12 @@ function Portal({ user, setUser }) {
   }, [location]);
 
   return (
-    <div className={portal.body}   ref={container}>
+    <div className={portal.body}   ref={container} >
       {location.pathname.toLowerCase().includes("login") ? null : (
         <Header user={user} setUser={setUser} />
       )}
       <div
-      
+     
         className={
           location.pathname.toLowerCase().includes("login")
             ? portal.Logincontent
