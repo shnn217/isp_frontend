@@ -2,14 +2,20 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import classes from "../style/pages/Setting.module.scss";
 import home from "../style/pages/Home.module.scss";
+import profileUpdateApi from "../api/profileApi";
 
 function Homepage({ user,setUser }) {
   const formArray = [
     
       {
-        title:'Brithday',
-        name:'brithday',
-        type:"date"
+        title:'First Name',
+        name:'first_name',
+        type:"text"
+      },
+      {
+        title:'Last Name',
+        name:'last_name',
+        type:"text"
       },
       {
         title:'Location',
@@ -17,24 +23,29 @@ function Homepage({ user,setUser }) {
         type:"text"
       },
       {
-        title:'Work',
-        name:'jobtitle',
+        title:'Title',
+        name:'title',
         type:"text"
       },
       {
         title:'University',
-        name:'university',
+        name:'uni',
         type:"text"
       },
       {
-        title:'Major',
-        name:'major',
+        title:'Department',
+        name:'dep',
         type:"text"
       },
       {
-        title:'Email',
-        name:'email',
-        type:"email"
+        title:'Bio',
+        name:'bio',
+        type:"text"
+      },
+      {
+        title:'Linkedin Url',
+        name:'linkedin_url',
+        type:"text"
       },
   ];
   const [profile, set] = useState({ ...user });
@@ -57,7 +68,7 @@ function Homepage({ user,setUser }) {
       if (imageFile.size < max_size) {
         // console.log(imageFile.size < max_size);
         reader.onload = function (upload) {
-          set({ ...profile, image: upload.target.result });
+          set({ ...profile, profile_img: upload.target.result });
           // let wowo = valid.images;
         };
         reader.readAsDataURL(imageFile);
@@ -83,11 +94,17 @@ function Homepage({ user,setUser }) {
     set({...profile,[name]:value})
   }
   function save () {
-    setUser(profile)
-    localStorage.setItem(
+    profileUpdateApi(profile).then((respond) => {
+      console.log(respond)
+      setUser(profile)
+      localStorage.setItem(
       "User",
       JSON.stringify(profile)
     );
+    }).catch((error) => {
+      console.log(error)
+    })
+    
   }
   return (
     <div className={classes.container}>
@@ -105,7 +122,7 @@ function Homepage({ user,setUser }) {
           }}
         />
         <label htmlFor={"image-file"} className={classes.avatar}>
-          <img src={profile.image} alt="" />
+          <img src={profile.profile_img} alt="" />
         </label>
         <div className={classes.form}>
           {formArray.map(f=>(

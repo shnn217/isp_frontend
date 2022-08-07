@@ -10,7 +10,8 @@ import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profie";
-import Setting from './pages/Setting'
+import Setting from './pages/Setting';
+import AfterLinkedinLogin from "./pages/AfterLinkedinLogin";
 import "./style/Global.scss";
 
 export default function Routing() {
@@ -27,6 +28,7 @@ export default function Routing() {
           <Route  path={"Setting"} element={<Setting user={user} setUser={setUser} />} />
           <Route path={"login"}>
             <Route index element={<Login setUser={setUser} />} />
+            <Route path="after_linkedin" element={<AfterLinkedinLogin/>} />
             <Route path="signup" element={<SignUp user={user} />} />
           </Route>
           <Route path={"profile"}>
@@ -40,3 +42,4 @@ export default function Routing() {
     </BrowserRouter>
   );
 }
+

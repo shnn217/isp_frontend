@@ -9,6 +9,7 @@ import {
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
 import { useState } from "react";
+import BlankUser from "../resource/image/blank-profile-picture.png";
 
 
 function Header(props) {
@@ -25,14 +26,14 @@ function Header(props) {
         <AiOutlineSearch />
         <input type="text" placeholder="username" />
       </div>
-      {user.image ? (
+      {user.first_name ? (
         <div className={header.avatar}>
-          <img src={user.image} alt="" onClick={() => set(!open)} />
+          <img src={user.profile_img?user.profile_img:BlankUser} alt="user" onClick={() => set(!open)} />
           {open ? (
             <div className={header.panel} onClick={() => set(!open)}>
               <Link to={'/profile/me'} className={`${header.name} ${header.row}`}>
                 <AiOutlineUser />
-                {user.name}
+                {user.first_name} {user.last_name}
               </Link>
 
               <Link to='/setting' className={header.row}>
@@ -52,7 +53,7 @@ function Header(props) {
         </div>
       ) : (
         <div className={header.QA}>
-          {user.name.length > 1 ? `Hi, ${user.name}` : "Q&A"}
+          
         </div>
       )}
     </div>

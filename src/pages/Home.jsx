@@ -3,14 +3,17 @@ import { useState } from "react";
 import post from "../style/component/Post.module.scss";
 import classes from "../style/pages/Home.module.scss";
 import { IoEarth } from "react-icons/io5";
-import { FaPlus, FaRegCommentAlt } from "react-icons/fa";
+import { FaPlus, FaRegCommentAlt, FaLinkedin } from "react-icons/fa";
 import { AiFillHeart, AiOutlineUser } from "react-icons/ai";
+import getPostsApi from "../api/postsApi";
 import {
   FcLike,
   FcImageFile,
   FcLikePlaceholder,
   FcShare,
 } from "react-icons/fc";
+import { useEffect } from "react";
+
 
 function Homepage({ user }) {
   const [profile, set] = useState({
@@ -53,65 +56,43 @@ function Homepage({ user }) {
     },
   ];
 
-  const [posts, setPosts] = useState([
+   const [posts, setPosts] = useState([
     {
-      user: {
-        name: "Wang",
-        image:
-          "https://i.pinimg.com/564x/3f/86/fc/3f86fcc2b0b2dd0fb0e90d6590abaf19.jpg",
-        jobtitle: "UI/UX",
-      },
-      id: "120030221qew12",
-      image:
-        "https://i.pinimg.com/736x/d9/8e/c0/d98ec0b448f2381d00c842d3f86b383d.jpg",
-      captions: "what a car..",
-      num_like: 120,
-    },
-    {
-      user: {
-        name: "Alex King",
-        image:
-          "https://i.pinimg.com/736x/59/b8/83/59b8831a4fa6bea47c9c75a5aa5381ef.jpg",
-        jobtitle: "Sales",
-      },
-      id: "12a1200313022fqrq12",
-      image: "",
-      captions: "I'm Iron man.",
-      num_like: 13,
-    },
-    {
-      user: {
-        name: "Valarie ",
-        image:
-          "https://i.pinimg.com/564x/99/9f/2c/999f2c3b5126ed4e23cfcd9dc360dac8.jpg",
-        jobtitle: "Head Hunter",
-      },
-      image:
-        "https://i.pinimg.com/564x/51/c9/3e/51c93e0a70e8ea6b3e10224cac8715a4.jpg",
-      captions: "",
-      id: "120we203022-qe12grdhu-qwe12",
-      num_like: 10,
-    },
-    {
-      user: {
-        name: "Amy",
-        image:
-          "https://i.pinimg.com/564x/05/49/96/05499652752bc2e3137f860c9164fbd9.jpg",
-        jobtitle: "Designer",
-      },
-      id: "12a1200313022fqrq12",
-      image: "",
-      captions: "!?",
-      num_like: 43,
-    },
-  ]);
+      user:{
+        id:'',
+        name:'',
+        image:''
+      }
+    }
+   ]);
+
+  
+useEffect(()=>{
+  getPostsApi().then((res)=>{
+
+    setPosts(res.data.map((post)=>(
+      {
+        ...post,
+        user:{
+          name:post.user,
+          jobtitle:'UI/UX',
+          image:'https://i.pinimg.com/564x/05/49/96/05499652752bc2e3137f860c9164fbd9.jpg'
+        },
+        captions:post.caption,
+        id: post.id,
+        num_like: post.num_likes,
+      }
+    )))
+  })
+  
+},[])
 
   return (
     <div className={classes.container}>
       <div className={classes.content}>
         <div className={classes.con}>
           <div className={classes.left}>
-            <Profile user={user} profile={profile} />
+            <Profile user={user} profile={profile} setProfile={set}/>
             <Savequestions questions={questions} />
           </div>
           <div className={classes.modal}>
@@ -157,6 +138,7 @@ export function CreatePost({ user, setPosts, posts }) {
         // console.log(imageFile.size < max_size);
         reader.onload = function (upload) {
           set({ ...data, image: upload.target.result });
+          console.log(upload.target.result)
           // let wowo = valid.images;
         };
         reader.readAsDataURL(imageFile);
@@ -184,7 +166,7 @@ export function CreatePost({ user, setPosts, posts }) {
         image: data.image,
         captions: data.captions,
         id: `203${data.captions}`,
-        num_like: 0
+        num_likes: 0
       },
       ...posts
     ])
@@ -269,7 +251,7 @@ export function POST({ p }) {
       <div className={post.howmany}>
         <div className={post.likeNum}>
           <FcLike />
-          {p.num_like}
+          {p.num_likes}
         </div>
         <div className={post.right}></div>
       </div>
@@ -290,44 +272,52 @@ export function POST({ p }) {
   );
 }
 
-export function Profile({ profile, user }) {
+export function Profile({ profile, user,set }) {
   const location = useLocation()
   const ProfilePage = !location.pathname.includes('me') && location.pathname.includes('profile')
+  const info = ProfilePage?profile:user
+  useEffect(()=>{
+
+  },[])
+
   return (
     <div className={classes.profile}>
       <div className={classes.avatar}>
-        {ProfilePage ? <img src={ProfilePage ? profile.image : user.image} alt={user.name} /> : <Link to="/profile/me"><img src={ProfilePage ? profile.image : user.image} alt={user.name} /></Link>}
+        {ProfilePage ?
+         <img src={info.profile_img} alt={info.first_name} /> :
+         <Link to="/profile/me"><img src={info.profile_img} alt={info.first_name} /></Link>}
         {ProfilePage ? <div className={`${classes.follow} custom-btn`}>
           <FaPlus />
           FOLLOW
         </div> : null}
       </div>
       <div className={classes.info}>
-        <h4>{ProfilePage ? profile.name : user.name}</h4>
+        <h4>
+          {info.first_name} {info.last_name} 
+        {ProfilePage&&profile.linkedin_url?<a href={info.linkedin_url}><FaLinkedin/></a>:
+        user.linkedin_url?<a href={info.linkedin_url}><FaLinkedin/></a>:null}
+        </h4>
 
-        <div className={classes.row}>
-          <div className={classes.title}>Brithday:</div>
-          <div className={classes.value}>{profile.brithday}</div>
-        </div>
+  
         <div className={classes.row}>
           <div className={classes.title}>Location:</div>
           <div className={classes.value}>{profile.location}</div>
         </div>
         <div className={classes.row}>
-          <div className={classes.title}>Work:</div>
-          <div className={classes.value}>{profile.company} </div>
+          <div className={classes.title}>Title:</div>
+          <div className={classes.value}>{profile.title} </div>
         </div>
         <div className={classes.row}>
           <div className={classes.title}>University:</div>
-          <div className={classes.value}>{profile.university}</div>
+          <div className={classes.value}>{profile.uni}</div>
         </div>
         <div className={classes.row}>
-          <div className={classes.title}>Major:</div>
-          <div className={classes.value}>{profile.major}</div>
+          <div className={classes.title}>Department:</div>
+          <div className={classes.value}>{profile.dep}</div>
         </div>
         <div className={classes.row}>
-          <div className={classes.title}>Email:</div>
-          <div className={classes.value}>{profile.email}</div>
+          <div className={classes.title}>Bio:</div>
+          <div className={classes.value}>{profile.bio}</div>
         </div>
       </div>
     </div>

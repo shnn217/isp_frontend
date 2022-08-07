@@ -170,7 +170,14 @@
    h4 {
       text-align: center;
       color:$PrimaryDark;
-      margin:0 0 1rem 0
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin:0 0 1rem 0;
+      a {
+         margin:0 0px 5px 0.5rem;
+         cursor: pointer;
+      }
    }
    .row{
       // text-align: center;

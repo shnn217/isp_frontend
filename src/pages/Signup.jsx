@@ -3,6 +3,7 @@ import Image from "../resource/image/ISPlogin.png";
 import { useState } from "react";
 import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import signupApi from "../api/signupApi";
 
 function Signup({ user, setUser }) {
   const User = localStorage.getItem("Remeberme");
@@ -19,37 +20,32 @@ function Signup({ user, setUser }) {
   }
 
   function submit(e) {
-    //第一步先檢查我設計定的唯一帳密是否正確
-    if (data.username === "shnn217" && data.password === "password") {
-      //remeber me的功能判斷
-      if (remeber) {
-        localStorage.setItem("Remeberme", JSON.stringify(data));
-      } else {
-        localStorage.removeItem("Remeberme");
-      }
+      
+    signupApi(data)
+    .then((res) => {
+      
+      navigate("/login");
+    })
+    .catch(() => {});
 
-      //更新登入流程:假如這人登入成功,把資訊丟進localstorage,用來判斷有沒有登入過
-      //因為現在沒有token所以先這樣用
-      localStorage.setItem(
-        "User",
-        JSON.stringify({
-          name: "Eric Lin",
-          image:
-            "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
-        })
-      );
-      //把資訊也順便丟進去變數裡面
-      setUser({
-        name: "Eric Lin",
-        image:
-          "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
-      });
+      // localStorage.setItem(
+      //   "User",
+      //   JSON.stringify({
+      //     name: "Eric Lin",
+      //     image:
+      //       "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
+      //   })
+      // );
+      // //把資訊也順便丟進去變數裡面
+      // setUser({
+      //   name: "Eric Lin",
+      //   image:
+      //     "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
+      // });
       //把畫面倒回首頁
-      navigate("/");
-    } else {
-      alert("Wrong username or password");
+      // navigate("/");
     }
-  }
+  
 
 
   return (
@@ -108,9 +104,9 @@ function Signup({ user, setUser }) {
               placeholder="Confirm Password"
               type={show ? "text" : "password"}
               className={` form-control `}
-              name="Cpassword"
-              id="Cpassword"
-              value={data.Cpassword}
+              name="password2"
+              id="password2"
+              value={data.password2}
               onChange={handle}
             />
           </div>
