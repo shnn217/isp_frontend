@@ -1,7 +1,7 @@
 @import "../Global.scss";
 
 .body {
-   height: 100vh;
+   height: calc(100vh - 80px);
    width: 100vw;
 }
 
@@ -10,12 +10,14 @@
    // background-color: red;
    // overflow: auto;
    // overflow-x: hidden;
-   height: calc(100% - 80px);
+   // display: none;
+   margin-top:80px;
+   height: calc(100% );
 }
 .Logincontent {
    width: 100vw;
    overflow: hidden;
-   height: 100%
+   height:calc(100% + 80px);
    // background-color: red;
    // height: calc(100%);
 }

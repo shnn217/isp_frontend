@@ -2,8 +2,9 @@ import { Link, useLocation } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import post from "../style/component/Post.module.scss";
 import classes from "../style/pages/Home.module.scss";
+import { Profile, Recommendation, Savequestions, CreatePost } from './Home';
+import POST from "./component/POST";
 import {getSelfPostsApi} from "../api/postsApi";
-import { Profile, POST, Recommendation, Savequestions, CreatePost } from './Home'
 
 function Profilepage({ user }) {
   let location = useLocation()

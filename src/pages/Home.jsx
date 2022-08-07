@@ -7,13 +7,10 @@ import { FaPlus, FaRegCommentAlt, FaLinkedin } from "react-icons/fa";
 import { AiFillHeart, AiOutlineUser } from "react-icons/ai";
 import getPostsApi from "../api/postsApi";
 import {
-  FcLike,
   FcImageFile,
-  FcLikePlaceholder,
-  FcShare,
 } from "react-icons/fc";
+import POST from "./component/POST";
 import { useEffect } from "react";
-
 
 function Homepage({ user }) {
   const [profile, set] = useState({
@@ -228,49 +225,7 @@ export function CreatePost({ user, setPosts, posts }) {
   );
 }
 
-export function POST({ p }) {
-  const [like, setLike] = useState(false);
-  return (
-    <div className={post.post} key={`post_${p.id}`}>
-      <div className={post.user}>
-        <Link to={`/profile/${p.id}?name=${p.user.name}&image=${p.user.image}`}><img src={p.user.image} alt="" /></Link>
-        <div className={post.userinfo}>
-          <div className={post.name}>
-            {p.user.name}
-            <IoEarth />
-          </div>
-          <div className={post.jobtitle}>{p.user.jobtitle}</div>
-        </div>
-      </div>
-      {p.captions ? <div className={post.content}>{p.captions}</div> : null}
-      {p.image ? (
-        <div className={post.image}>
-          <img src={p.image} alt="" />
-        </div>
-      ) : null}
-      <div className={post.howmany}>
-        <div className={post.likeNum}>
-          <FcLike />
-          {p.num_likes}
-        </div>
-        <div className={post.right}></div>
-      </div>
-      <div className={post.toolbar}>
-        <div className={post.block} onClick={() => setLike(!like)}>
-          {like ? <FcLike /> : <FcLikePlaceholder />}Like
-        </div>
-        <div className={post.block}>
-          <FaRegCommentAlt />
-          Comment
-        </div>
-        <div className={post.block}>
-          <FcShare />
-          Share
-        </div>
-      </div>
-    </div>
-  );
-}
+
 
 export function Profile({ profile, user,set }) {
   const location = useLocation()
