@@ -85,6 +85,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
   }
   return (
     <div className={topics.container}>
+      <CreatePost setQ={setQ} questions={questions}/>
       <div className={topics.filter}>
         {filter.options.map((op) => (
           <div
@@ -109,6 +110,60 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
       </div>
     </div>
   );
+}
+
+export function CreatePost ({setQ,questions}) {
+  const [text,setText] = useState({
+    title:'',
+    captions:'',
+
+  })
+  const [open,set] = useState(false)
+  const handle = (e) =>{
+    let name = e.target.name
+    let value = e.target.value
+    setText({...text,[name]:value})
+  }
+  function post () {
+    setQ([
+      {
+        captions:text.captions,
+        title:text.title
+      },
+      ...questions
+    ])
+    setText({
+      title:'',
+      captions:''
+    })
+  }
+  useEffect(()=>{
+    if(text.title){
+      set(true)
+    }else{
+      set(false)
+    }
+  },[text])
+  return (
+    <div className={`${topics.create} ${topics.open}`}>
+    <div className={topics.title}>
+      <input placeholder="Ask for help?" name="title" type="text" value={text.title} onChange={handle}/>
+    </div>
+    <div className={`${topics.captions} ${open?"":topics.close}`}>
+      <textarea 
+      value={text.captions} 
+      name="captions" 
+      placeholder="Detail for this question"
+      id="" 
+      cols="50" 
+      rows="3" 
+      onChange={handle}
+      >
+      </textarea>
+      <div className={`${topics.post} custom-btn`} onClick={post}>POST</div>
+    </div>
+  </div>
+  )
 }
 
 export function Topic({ topic }) {

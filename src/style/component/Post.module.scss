@@ -195,6 +195,7 @@
      
    }
 }
+
 .create{
    display:flex;
    align-items: center;
@@ -206,7 +207,7 @@
       border-radius: 50%;
       &:hover{
          transition:all .3 ease-in-out;
-         opacity:.8
+         opacity:.8;
       }
    }
    .input{
