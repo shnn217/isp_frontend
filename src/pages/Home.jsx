@@ -249,30 +249,30 @@ export function Profile({ profile, user,set }) {
       <div className={classes.info}>
         <h4>
           {info.first_name} {info.last_name} 
-        {ProfilePage&&profile.linkedin_url?<a href={info.linkedin_url}><FaLinkedin/></a>:
+        {ProfilePage&&info.linkedin_url?<a href={info.linkedin_url}><FaLinkedin/></a>:
         user.linkedin_url?<a href={info.linkedin_url}><FaLinkedin/></a>:null}
         </h4>
 
   
         <div className={classes.row}>
           <div className={classes.title}>Location:</div>
-          <div className={classes.value}>{profile.location}</div>
+          <div className={classes.value}>{info.location}</div>
         </div>
         <div className={classes.row}>
           <div className={classes.title}>Title:</div>
-          <div className={classes.value}>{profile.title} </div>
+          <div className={classes.value}>{info.title} </div>
         </div>
         <div className={classes.row}>
           <div className={classes.title}>University:</div>
-          <div className={classes.value}>{profile.uni}</div>
+          <div className={classes.value}>{info.uni}</div>
         </div>
         <div className={classes.row}>
           <div className={classes.title}>Department:</div>
-          <div className={classes.value}>{profile.dep}</div>
+          <div className={classes.value}>{info.dep}</div>
         </div>
         <div className={classes.row}>
           <div className={classes.title}>Bio:</div>
-          <div className={classes.value}>{profile.bio}</div>
+          <div className={classes.value}>{info.bio}</div>
         </div>
       </div>
     </div>

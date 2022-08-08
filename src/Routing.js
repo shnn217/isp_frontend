@@ -31,8 +31,8 @@ export default function Routing() {
           <Route  path={"Setting"} element={<Setting user={user} setUser={setUser} />} />
           <Route path={"login"}>
             <Route index element={<Login setUser={setUser} />} />
-            <Route path="after_linkedin" element={<AfterLinkedinLogin/>} />
-            <Route path="signup" element={<SignUp user={user} />} />
+            <Route path="after_linkedin" element={<AfterLinkedinLogin user={user} setUser={setUser}/>} />
+            <Route path="signup" element={<SignUp user={user} />} /> 
           </Route>
           <Route path={"profile"}>
             <Route index element={<Navigate to="/profile/me" />} />

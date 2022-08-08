@@ -3,7 +3,7 @@ import axiosInstance from "./axiosApi";
 
 async function profileUpdateApi(props) {
     try {
-        const response = await axiosInstance.put('/profile/'+props.id_user, {
+        const response = await axiosInstance.put('/profile/'+props.user, {
             ...props
         });
     

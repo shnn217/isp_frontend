@@ -79,16 +79,16 @@ export default function POST({ p }) {
   return (
     <div className={post.post} key={`post_${p.id}`}>
       <div className={post.user}>
-        <Link to={`/profile/${p.id}?name=${p.user.name}&image=${p.user.image}`}><img src={p.user.image} alt="" /></Link>
+        <Link to={`/profile/${p.id}?name=${p.user.first_name}&image=${p.user.image}`}><img src={p.user.profile_img} alt="" /></Link>
         <div className={post.userinfo}>
           <div className={post.name}>
-            {p.user.name}
+            {p.user.first_name} {p.user.last_name}
             <IoEarth />
           </div>
-          <div className={post.jobtitle}>{p.user.jobtitle}</div>
+          <div className={post.jobtitle}>{p.user.title}</div>
         </div>
       </div>
-      {p.captions ? <div className={post.content}>{p.captions}</div> : null}
+      {p.caption ? <div className={post.content}>{p.caption}</div> : null}
       {p.image ? (
         <div className={post.image}>
           <img src={p.image} alt="" />
@@ -97,7 +97,7 @@ export default function POST({ p }) {
       <div className={post.howmany}>
         <div className={post.likeNum}>
           <FcLike />
-          {p.num_like}
+          {p.num_likes}
         </div>
         <div className={post.right}></div>
       </div>

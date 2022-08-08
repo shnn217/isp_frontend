@@ -57,11 +57,12 @@ function Profilepage({ user }) {
         {
           ...post,
           user:{
-            name:post.user,
-            jobtitle:'UI/UX',
-            image:'https://i.pinimg.com/564x/05/49/96/05499652752bc2e3137f860c9164fbd9.jpg'
+            first_name: post.user.first_name,
+            last_name: post.user.last_name,
+            title: post.user.title,
+            profile_img: post.user.profile_img
           },
-          captions:post.caption,
+          caption:post.caption,
           id: post.id,
           num_like: post.num_likes,
         }
