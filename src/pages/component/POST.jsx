@@ -62,7 +62,6 @@ export default function POST({ p }) {
   ])
   const [text,setText] =useState('')
 
-
   function addcomment (e) {
     e.preventDefault()
     setComment([{

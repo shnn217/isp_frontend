@@ -54,6 +54,7 @@ function Homepage({ user }) {
   const [posts, setPosts] = useState([
     {
       user: {
+        id:'qkowekqoe',
         name: "Wang",
         image:
           "https://i.pinimg.com/564x/3f/86/fc/3f86fcc2b0b2dd0fb0e90d6590abaf19.jpg",
