@@ -23,7 +23,7 @@ function Signup({ user, setUser }) {
       
     signupApi(data)
     .then((res) => {
-      
+  
       navigate("/login");
     })
     .catch(() => {});
@@ -63,7 +63,7 @@ function Signup({ user, setUser }) {
               set({ username: "shnn217", password: "password" });
             }}
           >
-            <Logo color={'#365E9D'}/>ISP
+            <Logo style={{ marginRight: "-5px" }} color={'#365E9D'}/><i>ISP</i>
             {/* Sign In */}
           </div>
           <div className={`${classes.input} `}>

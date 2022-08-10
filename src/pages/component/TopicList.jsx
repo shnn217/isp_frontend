@@ -2,6 +2,7 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import topics from "../../style/pages/Topics.module.scss";
 import { AiOutlineQuestionCircle, AiFillCaretDown } from "react-icons/ai";
+import {createQuestionApi} from "../../api/questionsApi";
 
 export default function TopicsList() {
   const [filter, setFilter] = useState({
@@ -164,6 +165,7 @@ export function CreatePost({ setQ, questions }) {
   const [text, setText] = useState({
     title: "",
     captions: "",
+    category: "",
   });
   const [open, set] = useState(false);
   const handle = (e) => {
@@ -172,6 +174,9 @@ export function CreatePost({ setQ, questions }) {
     setText({ ...text, [name]: value });
   };
   function post() {
+    createQuestionApi(text).then(()=>{
+
+    })
     setQ([
       {
         captions: text.captions,
@@ -228,7 +233,7 @@ export function Topic({ topic }) {
         {/* <AiOutlineQuestionCircle /> */}
         <div className={topics.avatar} title={`${topic.user.first_name} ${topic.user.last_name}`}>
           <img
-            src={topic.user.profile_image}
+            src={topic.user.profile_img}
             alt={`${topic.user.first_name} ${topic.user.last_name}`}
           />
         </div>

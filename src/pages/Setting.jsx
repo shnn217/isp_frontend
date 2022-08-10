@@ -51,7 +51,7 @@ function Homepage({ user,setUser }) {
   const [profile, set] = useState({ ...user });
   async function newfilesUpload(e) {
     //設定檔案大小限制
-    var max_size = 540000;
+    var max_size = 5000000;
     // console.log('imageID:',images[index].id)
     var reader = new FileReader();
     const imageFile = e.target.files[0];

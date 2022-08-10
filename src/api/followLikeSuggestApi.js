@@ -61,3 +61,14 @@ export async function getDepSuggestionApi() {
         throw error;
     }
 }
+
+export async function getUserLikeStatusApi(id) {
+
+    try {
+        const response = await axiosInstance.get('/num_like/' + id);
+    
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import topics from "../../style/pages/Topics.module.scss";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Comment, AddComment } from "./POST";
+import { createQuestionCommentApi, getQuestionCommentListApi } from "../../api/commentApi";
 export default function TopicsList() {
   const params = useParams();
   const [question, setQ] = useState({
@@ -33,68 +34,33 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
 
 export function Topic({ topic }) {
   const [open, setOpen] = useState(true);
-  const [comment, setComment] = useState([
-    {
-      user: {
-        name: "Wang",
-        image:
-          "https://i.pinimg.com/564x/3f/86/fc/3f86fcc2b0b2dd0fb0e90d6590abaf19.jpg",
-        jobtitle: "UI/UX",
-      },
-      id: "120030221qew12",
-
-      captions: "what a car..",
-    },
-    {
-      user: {
-        name: "Alex King",
-        image:
-          "https://i.pinimg.com/736x/59/b8/83/59b8831a4fa6bea47c9c75a5aa5381ef.jpg",
-        jobtitle: "Sales",
-      },
-      id: "12a1200313022fqrq12",
-
-      captions: "...",
-    },
-    {
-      user: {
-        name: "Valarie ",
-        image:
-          "https://i.pinimg.com/564x/99/9f/2c/999f2c3b5126ed4e23cfcd9dc360dac8.jpg",
-        jobtitle: "Head Hunter",
-      },
-
-      captions: "can I have a ride?",
-      id: "120we203022-qe12grdhu-qwe12",
-    },
-    {
-      user: {
-        name: "Amy",
-        image:
-          "https://i.pinimg.com/564x/05/49/96/05499652752bc2e3137f860c9164fbd9.jpg",
-        jobtitle: "Designer",
-      },
-      id: "12a1200313022fqrq12",
-
-      captions: "!?",
-    },
-  ]);
+  const [comment, setComment] = useState([]);
   const [text, setText] = useState("");
   const User = JSON.parse(localStorage.getItem("User"));
+  const [data, setData] = useState({...topic})
 
   function addcomment(e) {
     e.preventDefault();
-    setComment([
-      {
-        user: {
-          name: User.name,
-          image: User.image,
-          jobtitle: User.jobtitle,
-        },
-        captions: text,
-      },
-      ...comment,
-    ]);
+    createQuestionCommentApi(data, text).then((res)=>{
+      console.log(res.data)
+      setComment([{user:res.data.user,
+        captions:res.data.comment},...comment])
+    }).then(()=>{
+      getQuestionCommentListApi(data.id).then((respond)=>{
+        setComment(respond.data)
+      })
+    })
+    // setComment([
+    //   {
+    //     user: {
+    //       name: User.name,
+    //       image: User.image,
+    //       jobtitle: User.jobtitle,
+    //     },
+    //     captions: text,
+    //   },
+    //   ...comment,
+    // ]);
     setText("");
   }
 
@@ -115,7 +81,7 @@ export function Topic({ topic }) {
             "?name=" +
             topic.user.first_name +
             "&image=" +
-            topic.user.profile_image
+            topic.user.profile_img
           }
           className={topics.author}
         >
@@ -124,7 +90,7 @@ export function Topic({ topic }) {
           </div>
           {topic.user.first_name} {topic.user.last_name}
         </Link>
-        {topic.captions}
+        {topic.comment}
       </div>
       <div className={`${topics.comments}`}>
         <AddComment text={text} setText={setText} addcomment={addcomment} />

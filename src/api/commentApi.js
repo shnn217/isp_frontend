@@ -22,12 +22,12 @@ export async function getQuestionCommentListApi(id) {
     }
 }
 
-export async function createPostCommentApi(props) {
+export async function createPostCommentApi(props, text) {
 
     try {
         const response = await axiosInstance.post('/post_comment/',{
-            post: props.post,
-            content: props.content,
+            post: props,
+            comment: text,
         });
     
         return response;
@@ -41,7 +41,7 @@ export async function createQuestionCommentApi(props) {
     try {
         const response = await axiosInstance.post('/question_comment/',{
             post: props.question,
-            content: props.content,
+            comment: props.comment,
         });
     
         return response;

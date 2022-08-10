@@ -60,3 +60,4 @@ export async function deleteQuestionDetailApi(id) {
         throw error;
     }
 }
+
