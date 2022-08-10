@@ -20,7 +20,7 @@ import "./style/Global.scss";
 export default function Routing() {
   let UserInfo = localStorage.getItem("User");
   const [user, setUser] = useState(
-    UserInfo ? JSON.parse(UserInfo) : { name: "" }
+    UserInfo ? JSON.parse(UserInfo) : { first_name: "" }
   );
 
   return (

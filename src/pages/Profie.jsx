@@ -1,13 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useParams } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import post from "../style/component/Post.module.scss";
 import classes from "../style/pages/Home.module.scss";
 import { Profile, Recommendation, Savequestions, CreatePost } from './Home';
 import POST from "./component/POST";
-import {getSelfPostsApi} from "../api/postsApi";
+import {getOtherUserPostsApi, getPostsApi, getSelfPostsApi} from "../api/postsApi";
+import { profileInfoApi } from "../api/profileApi";
 
 function Profilepage({ user }) {
   let location = useLocation()
+  let params = useParams()
+  let id = params.pid
   const ProfilePage = !location.pathname.includes('me') && location.pathname.includes('profile')
   const [profile, set] = useState(ProfilePage?{
     name: location.search?decodeURI(location.search.split('&')[0].replace('?name=','')):'Allen Won',
@@ -51,26 +54,34 @@ function Profilepage({ user }) {
   const [posts, setPosts] = useState(ProfilePage?[]:[]);
 
   useEffect(()=>{
-    getSelfPostsApi().then((res)=>{
-
-      setPosts(res.data.map((post)=>(
-        {
-          ...post,
-          user:{
-            first_name: post.user.first_name,
-            last_name: post.user.last_name,
-            title: post.user.title,
-            profile_img: post.user.profile_img
-          },
-          caption:post.caption,
-          id: post.id,
-          num_like: post.num_likes,
-        }
-      )))
-    })
+    if(ProfilePage){
+      GetUserPosts()
+      GetUserProfile()
+    }else{
+      GetLogInUserProfile()
+    } 
+    
     
   },[location,location.search])
 
+  function GetLogInUserProfile(){
+    getSelfPostsApi().then((res)=>{
+
+      setPosts(res.data)
+  })
+}
+
+  function GetUserProfile() {
+    profileInfoApi(id).then((res)=>{
+      set(res.data)
+    })
+  }
+
+  function GetUserPosts(){
+    getOtherUserPostsApi(id).then((res)=>{
+      setPosts(res.data)
+    }
+  )}
 
   return (
     <div className={classes.container}>
