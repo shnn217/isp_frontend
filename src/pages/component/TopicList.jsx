@@ -6,7 +6,8 @@ import { AiOutlineQuestionCircle, AiFillCaretDown } from "react-icons/ai";
 export default function TopicsList() {
   const [filter, setFilter] = useState({
     sele: "ALL",
-    options: ["ALL", "Accommodation", "visa", "other"],
+    options: ["ALL", "Accommodation", "Graduate Route Graduate Route Visa", "Academic"],
+
   });
   const [questions, setQ] = useState([
     {
@@ -17,7 +18,7 @@ export default function TopicsList() {
           "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
       },
       title: "How to rent a place in stratford",
-      type: "Accommodation",
+      category: "Accommodation",
       captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -35,7 +36,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
+      category: "Graduate Route Visa",
       id: "12-32gqhas32",
       title: "How to exchange international car liscence",
     },
@@ -50,7 +51,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
+      category: "Graduate Route Visa",
       id: "12-3232",
       title: "How to rent a place in stratford",
     },
@@ -65,7 +66,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
+      category: "Graduate Route Visa",
       id: "12-3qds232",
       title: "How to exchange international car liscence",
     },
@@ -80,7 +81,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "Accommodation",
+      category: "Accommodation",
       id: "12-32asf32",
       title: "How to rent a place in stratford",
     },
@@ -95,7 +96,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
+      category: "Graduate Route Visa",
       id: "12-32vadv32",
       title: "How to exchange international car liscence",
     },
@@ -107,7 +108,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
           "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
       },
       captions: "12313213",
-      type: "other",
+      category: "other",
       id: "12-3as232",
       title: "How to rent a place in stratford",
     },
@@ -119,7 +120,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
           "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
       },
       captions: "12313213",
-      type: "other",
+      category: "other",
       id: "12-323231",
       title: "How to exchange international car liscence",
     },
@@ -133,14 +134,14 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
   }
   return (
     <div className={topics.container}>
-      <CreatePost setQ={setQ} questions={questions} />
+      <CreatePost setQ={setQ} questions={questions} filter={filter} setFilter={setFilter} />
       <div className={topics.filter}>
         {filter.options.map((op) => (
           <div
-            key={op.id}
-            className={`${topics.tag} ${
-              filter.sele === op ? topics.selected : ""
-            }`}
+            key={`tag_${op}`}
+            title={op}
+            className={`${topics.tag} ${filter.sele === op ? topics.selected : ""
+              }`}
             onClick={() => select(op)}
           >
             {op}
@@ -150,7 +151,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
       <div className={topics.content}>
         {questions
           .filter((p) =>
-            filter.sele === "ALL" ? true : p.type === filter.sele
+            filter.sele === "ALL" ? true : p.category === filter.sele
           )
           .map((q) => (
             <Topic topic={q} />
@@ -160,16 +161,18 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
   );
 }
 
-export function CreatePost({ setQ, questions }) {
+export function CreatePost({ setQ, questions, filter, setFilter }) {
   const [text, setText] = useState({
     title: "",
     captions: "",
+    category: ""
   });
   const [open, set] = useState(false);
   const handle = (e) => {
     let name = e.target.name;
     let value = e.target.value;
     setText({ ...text, [name]: value });
+
   };
   function post() {
     setQ([
@@ -201,6 +204,12 @@ export function CreatePost({ setQ, questions }) {
           value={text.title}
           onChange={handle}
         />
+        <select className="form-select form-select-sm" onChange={handle} name="categroy" aria-label="Default select example">
+          {/* <option selected></option> */}
+          {filter.options.map((option) => (
+            <option value={option}>{option}</option>
+          ))}
+        </select>
       </div>
       <div className={`${topics.captions} ${open ? "" : topics.close}`}>
         <textarea

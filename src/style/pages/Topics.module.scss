@@ -20,6 +20,10 @@
       padding:5px 1rem;
       cursor: pointer;
       margin: 0 1rem 0 0 ;
+      white-space:nowrap;
+      max-width: 150px;
+       text-overflow: ellipsis;
+       overflow: hidden;
       transition:all .3s ease-in-out
    }
    .tag.selected{
@@ -37,15 +41,27 @@
       border-radius: 4rem;
       background-color:$GreyLight;
       padding:5px 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
       input{
          background: transparent;
+         // background-color:blue;
          border: none;
          color: #000;
+         width: 70%;
          margin-left: .5rem;
          &:focus {
            border: none;
            outline: none;
          }
+      }
+      select{
+         width: 120px;
+         background:transparent;
+         border: 1px solid #fff;
+         font-weight: 550;
       }
    }
    .captions{
