@@ -14,6 +14,7 @@ import Setting from './pages/Setting'
 import Topics from './pages/Topics'
 import TopicsList from "./pages/component/TopicList";
 import TopicView from "./pages/component/TopicView";
+import SearchProfile from './pages/SearchProfile'
 import "./style/Global.scss";
 
 export default function Routing() {
@@ -34,6 +35,7 @@ export default function Routing() {
           </Route>
           <Route path={"profile"}>
             <Route index element={<Navigate to="/profile/me" />} />
+            <Route path={"search"} element={<SearchProfile user={user}/>}/>
             <Route path="me" element={<Profile user={user} />} />
             <Route path=":pid" element={<Profile user={user} />} />
           </Route>

@@ -108,6 +108,45 @@
          padding:1rem 0;
       }
    }
+   .author{
+      display: flex;
+      align-items: center;
+      margin:-.5rem 0 1rem 0;
+      background-color:$GreyLight;
+      border-radius: 4px;
+      width: 20%;
+      cursor: pointer;
+      font-size:14px;
+      justify-content:center;
+      text-decoration: none;
+      color:rgba(0,0,0,.7);
+      font-weight:500;
+      padding:5px;
+      &:hover {
+         opacity: .7;
+      }
+      .avatar{
+         width:25px;
+         height:25px;
+         margin-right:5px;
+         img{
+            width: 26px;
+            height: 26px;
+         }
+      }
+   }
+   .avatar{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right:1rem;
+      border: 2px solid $Grey;
+      img{
+         width: 32px;
+         height: 32px;
+      }
+   }
    .topic{
      
       background-color:$Grey;
@@ -120,9 +159,11 @@
          position: relative;
          height: 30px;
          align-items:center;
-         padding:1rem 0;
+         padding:1.25rem 0;
          font-weight: 500;
          font-size: 18px;
+         // margin-bottom: .5rem;
+       
          a{
             color:#000;
             text-decoration: none;
@@ -151,12 +192,14 @@
          padding:1rem 0;
          transition: all 0.3s ease-in-out;
          border-top: 1px solid #fff;
+         margin-top: 1rem;
       }
       .captions.open{
          height:0;
          padding:0rem;
          overflow:hidden;
-         border-top: 0px 
+         border-top: 0px ;
+         margin-top: 0rem;
 
       }
      

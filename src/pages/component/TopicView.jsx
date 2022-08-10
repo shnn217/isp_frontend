@@ -2,86 +2,30 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import topics from "../../style/pages/Topics.module.scss";
 import { AiOutlineLeft } from "react-icons/ai";
-import { Comment ,AddComment } from "./POST";
+import { Comment, AddComment } from "./POST";
 export default function TopicsList() {
   const params = useParams();
-  const [questions, setQ] = useState([
-    {
-      title: "How to rent a place in stratford",
-      type: "Accommodation",
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+  const [question, setQ] = useState({
+    user: {
+      first_name: "Jay",
+      last_name: "Chou",
+      id: "qweqwe",
+      profile_image:
+        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+    },
+    captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      id: "12-32",
-    },
-    {
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
-      id: "12-32gqhas32",
-      title: "How to exchange international car liscence",
-    },
-    {
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
-      id: "12-3232",
-      title: "How to rent a place in stratford",
-    },
-    {
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
-      id: "12-3qds232",
-      title: "How to exchange international car liscence",
-    },
-    {
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "Accommodation",
-      id: "12-32asf32",
-      title: "How to rent a place in stratford",
-    },
-    {
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      type: "visa",
-      id: "12-32vadv32",
-      title: "How to exchange international car liscence",
-    },
-    {
-      captions: "12313213",
-      type: "other",
-      id: "12-3as232",
-      title: "How to rent a place in stratford",
-    },
-    {
-      captions: "12313213",
-      type: "other",
-      id: "12-323231",
-      title: "How to exchange international car liscence",
-    },
-  ]);
-  
+    type: "visa",
+    id: "12-32vadv32",
+    title: "How to exchange international car liscence",
+  });
+
   return (
     <div className={topics.container}>
       <div className={topics.content}>
-        {questions
-          .filter((p) => p.id === params.tid)
-          .map((q) => (
-            <Topic topic={q} />
-          ))}
+        <Topic topic={question} />
       </div>
     </div>
   );
@@ -89,7 +33,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
 
 export function Topic({ topic }) {
   const [open, setOpen] = useState(true);
-  const [comment,setComment] = useState([
+  const [comment, setComment] = useState([
     {
       user: {
         name: "Wang",
@@ -98,7 +42,7 @@ export function Topic({ topic }) {
         jobtitle: "UI/UX",
       },
       id: "120030221qew12",
-     
+
       captions: "what a car..",
     },
     {
@@ -109,7 +53,7 @@ export function Topic({ topic }) {
         jobtitle: "Sales",
       },
       id: "12a1200313022fqrq12",
-    
+
       captions: "...",
     },
     {
@@ -119,7 +63,7 @@ export function Topic({ topic }) {
           "https://i.pinimg.com/564x/99/9f/2c/999f2c3b5126ed4e23cfcd9dc360dac8.jpg",
         jobtitle: "Head Hunter",
       },
-     
+
       captions: "can I have a ride?",
       id: "120we203022-qe12grdhu-qwe12",
     },
@@ -131,26 +75,28 @@ export function Topic({ topic }) {
         jobtitle: "Designer",
       },
       id: "12a1200313022fqrq12",
-      
+
       captions: "!?",
     },
-  ])
-  const [text,setText] =useState('')
-  const User = JSON.parse(localStorage.getItem('User'))
+  ]);
+  const [text, setText] = useState("");
+  const User = JSON.parse(localStorage.getItem("User"));
 
-  function addcomment (e) {
-    e.preventDefault()
-    setComment([{
-      user:{
-        name:User.name,
-        image:User.image,
-        jobtitle:User.jobtitle,
+  function addcomment(e) {
+    e.preventDefault();
+    setComment([
+      {
+        user: {
+          name: User.name,
+          image: User.image,
+          jobtitle: User.jobtitle,
+        },
+        captions: text,
       },
-      captions:text
-    },...comment])
-    setText('')
+      ...comment,
+    ]);
+    setText("");
   }
-
 
   return (
     <div className={topics.topicView}>
@@ -158,17 +104,34 @@ export function Topic({ topic }) {
         <Link to="/Topics">
           <AiOutlineLeft />
         </Link>
-        <Link to={`/topics/${topic.id}`}>{topic.title}?</Link>
+        {topic.title}?
       </div>
 
       <div className={`${topics.captions} ${!open ? topics.open : ""}`}>
+        <Link
+          to={
+            "/profile/" +
+            topic.user.id +
+            "?name=" +
+            topic.user.first_name +
+            "&image=" +
+            topic.user.profile_image
+          }
+          className={topics.author}
+        >
+          <div className={topics.avatar}>
+            <img src={topic.user.profile_image} alt="" />
+          </div>
+          {topic.user.first_name} {topic.user.last_name}
+        </Link>
         {topic.captions}
       </div>
-      <div className={`${topics.comments}`}> 
-      <AddComment text={text}  setText={setText} addcomment={addcomment}/>  
-      {comment.map((c)=>(<Comment c={c}/>))}
+      <div className={`${topics.comments}`}>
+        <AddComment text={text} setText={setText} addcomment={addcomment} />
+        {comment.map((c) => (
+          <Comment c={c} />
+        ))}
       </div>
-   
     </div>
   );
 }
