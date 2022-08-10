@@ -15,32 +15,28 @@ import { useEffect } from "react";
 
 export default function POST({ p }) {
   const [like, setLike] = useState(false);
-  const [open, set] = useState(false);
-  const User = JSON.parse(localStorage.getItem("User"));
-  const [comment, setComment] = useState([]);
-  const [text, setText] = useState("");
+  const [open,set]= useState(false)
+  const User = JSON.parse(localStorage.getItem('User'))
+  const [comment,setComment] = useState([])
+  const [text,setText] =useState('')
 
-  
   function submitLike() {
     createLikePostApi(p).then(()=>{
       setLike(!like)
     })
   }
 
-  function addcomment(e) {
-    e.preventDefault();
-    setComment([
-      {
-        user: {
-          name: User.name,
-          image: User.image,
-          jobtitle: User.jobtitle,
-        },
-        captions: text,
+  function addcomment (e) {
+    e.preventDefault()
+    setComment([{
+      user:{
+        name:User.name,
+        image:User.image,
+        jobtitle:User.jobtitle,
       },
-      ...comment,
-    ]);
-    setText("");
+      captions:text
+    },...comment])
+    setText('')
   }
 
   return (

@@ -1,4 +1,4 @@
-import { Link, useLocation ,Outlet} from "react-router-dom";
+import { Link, useLocation, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import topics from "../../style/pages/Topics.module.scss";
 import { AiOutlineQuestionCircle, AiFillCaretDown } from "react-icons/ai";
@@ -9,73 +9,121 @@ export default function TopicsList() {
     options: ["ALL", "Accommodation", "visa", "other"],
   });
   const [questions, setQ] = useState([
-   {
-     title: "How to rent a place in stratford",
-     type: "Accommodation",
-     captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      title: "How to rent a place in stratford",
+      type: "Accommodation",
+      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-     id: "12-32",
-   },
-   {
-     captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+      id: "12-32",
+    },
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-     type: "visa",
-     id: "12-32gqhas32",
-     title: "How to exchange international car liscence",
-   },
-   {
-     captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+      type: "visa",
+      id: "12-32gqhas32",
+      title: "How to exchange international car liscence",
+    },
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-     type: "visa",
-     id: "12-3232",
-     title: "How to rent a place in stratford",
-   },
-   {
-     captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+      type: "visa",
+      id: "12-3232",
+      title: "How to rent a place in stratford",
+    },
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-     type: "visa",
-     id: "12-3qds232",
-     title: "How to exchange international car liscence",
-   },
-   {
-     captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+      type: "visa",
+      id: "12-3qds232",
+      title: "How to exchange international car liscence",
+    },
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-     type: "Accommodation",
-     id: "12-32asf32",
-     title: "How to rent a place in stratford",
-   },
-   {
-     captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+      type: "Accommodation",
+      id: "12-32asf32",
+      title: "How to rent a place in stratford",
+    },
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
 optio, eaque rerum! Provident similique accusantium nemo autem.`,
-     type: "visa",
-     id: "12-32vadv32",
-     title: "How to exchange international car liscence",
-   },
-   {
-     captions: "12313213",
-     type: "other",
-     id: "12-3as232",
-     title: "How to rent a place in stratford",
-   },
-   {
-     captions: "12313213",
-     type: "other",
-     id: "12-323231",
-     title: "How to exchange international car liscence",
-   },
- ]);
+      type: "visa",
+      id: "12-32vadv32",
+      title: "How to exchange international car liscence",
+    },
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      captions: "12313213",
+      type: "other",
+      id: "12-3as232",
+      title: "How to rent a place in stratford",
+    },
+    {
+      user: {
+        first_name: "Jay",
+        last_name: "Chou",
+        profile_image:
+          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      },
+      captions: "12313213",
+      type: "other",
+      id: "12-323231",
+      title: "How to exchange international car liscence",
+    },
+  ]);
 
   function select(tag) {
     setFilter({
@@ -85,7 +133,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
   }
   return (
     <div className={topics.container}>
-      <CreatePost setQ={setQ} questions={questions}/>
+      <CreatePost setQ={setQ} questions={questions} />
       <div className={topics.filter}>
         {filter.options.map((op) => (
           <div
@@ -112,58 +160,64 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
   );
 }
 
-export function CreatePost ({setQ,questions}) {
-  const [text,setText] = useState({
-    title:'',
-    captions:'',
-
-  })
-  const [open,set] = useState(false)
-  const handle = (e) =>{
-    let name = e.target.name
-    let value = e.target.value
-    setText({...text,[name]:value})
-  }
-  function post () {
+export function CreatePost({ setQ, questions }) {
+  const [text, setText] = useState({
+    title: "",
+    captions: "",
+  });
+  const [open, set] = useState(false);
+  const handle = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setText({ ...text, [name]: value });
+  };
+  function post() {
     setQ([
       {
-        captions:text.captions,
-        title:text.title
+        captions: text.captions,
+        title: text.title,
       },
-      ...questions
-    ])
+      ...questions,
+    ]);
     setText({
-      title:'',
-      captions:''
-    })
+      title: "",
+      captions: "",
+    });
   }
-  useEffect(()=>{
-    if(text.title){
-      set(true)
-    }else{
-      set(false)
+  useEffect(() => {
+    if (text.title) {
+      set(true);
+    } else {
+      set(false);
     }
-  },[text])
+  }, [text]);
   return (
     <div className={`${topics.create} ${topics.open}`}>
-    <div className={topics.title}>
-      <input placeholder="Ask for help?" name="title" type="text" value={text.title} onChange={handle}/>
+      <div className={topics.title}>
+        <input
+          placeholder="Ask for help?"
+          name="title"
+          type="text"
+          value={text.title}
+          onChange={handle}
+        />
+      </div>
+      <div className={`${topics.captions} ${open ? "" : topics.close}`}>
+        <textarea
+          value={text.captions}
+          name="captions"
+          placeholder="Detail for this question"
+          id=""
+          cols="50"
+          rows="3"
+          onChange={handle}
+        ></textarea>
+        <div className={`${topics.post} custom-btn`} onClick={post}>
+          POST
+        </div>
+      </div>
     </div>
-    <div className={`${topics.captions} ${open?"":topics.close}`}>
-      <textarea 
-      value={text.captions} 
-      name="captions" 
-      placeholder="Detail for this question"
-      id="" 
-      cols="50" 
-      rows="3" 
-      onChange={handle}
-      >
-      </textarea>
-      <div className={`${topics.post} custom-btn`} onClick={post}>POST</div>
-    </div>
-  </div>
-  )
+  );
 }
 
 export function Topic({ topic }) {
@@ -171,7 +225,13 @@ export function Topic({ topic }) {
   return (
     <div className={topics.topic}>
       <div className={topics.title}>
-        <AiOutlineQuestionCircle />
+        {/* <AiOutlineQuestionCircle /> */}
+        <div className={topics.avatar} title={`${topic.user.first_name} ${topic.user.last_name}`}>
+          <img
+            src={topic.user.profile_image}
+            alt={`${topic.user.first_name} ${topic.user.last_name}`}
+          />
+        </div>
         <Link to={`/topics/${topic.id}`}>{topic.title}</Link>
         <AiFillCaretDown
           onClick={() => setOpen(!open)}
