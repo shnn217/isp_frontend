@@ -48,9 +48,9 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
           "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
       },
       captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
+        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+        optio, eaque rerum! Provident similique accusantium nemo autem.`,
       category: "Graduate Route Visa",
       id: "12-3232",
       title: "How to rent a place in stratford",
@@ -204,9 +204,9 @@ export function CreatePost({ setQ, questions, filter, setFilter }) {
           value={text.title}
           onChange={handle}
         />
-        <select className="form-select form-select-sm" onChange={handle} name="categroy" aria-label="Default select example">
+        <select className="form-select form-select-sm" onChange={handle} name="category" aria-label="Default select example">
           {/* <option selected></option> */}
-          {filter.options.map((option) => (
+          {filter.options.map((option) => option==='ALL'?null:  (
             <option value={option}>{option}</option>
           ))}
         </select>
