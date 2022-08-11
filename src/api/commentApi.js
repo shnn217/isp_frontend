@@ -40,7 +40,7 @@ export async function createQuestionCommentApi(props) {
 
     try {
         const response = await axiosInstance.post('/question_comment/',{
-            post: props.question,
+            post: props,
             comment: props.comment,
         });
     

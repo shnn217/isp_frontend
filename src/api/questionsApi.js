@@ -16,7 +16,8 @@ export async function createQuestionApi(props) {
     try {
         const response = await axiosInstance.post('/question/',{
             category: props.category,
-            content: props.content,
+            content: props.captions,
+            title: props.title,
         });
         
         return response;
@@ -41,7 +42,8 @@ export async function updateQuestionDetailApi(id, props) {
     try {
         const response = await axiosInstance.put('/question/' + id,{
             category: props.category,
-            content: props.content,
+            content: props.captions,
+            title: props.title,
         });
         
         return response;

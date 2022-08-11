@@ -2,130 +2,19 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import topics from "../../style/pages/Topics.module.scss";
 import { AiOutlineQuestionCircle, AiFillCaretDown } from "react-icons/ai";
-import {createQuestionApi} from "../../api/questionsApi";
+import { createQuestionApi, getQuestionListApi } from "../../api/questionsApi";
 
 export default function TopicsList() {
   const [filter, setFilter] = useState({
     sele: "ALL",
-    options: ["ALL", "Accommodation", "Graduate Route Graduate Route Visa", "Academic"],
-
+    options: [
+      "ALL",
+      "Accommodation",
+      "Graduate Route Visa",
+      "Academic",
+    ],
   });
-  const [questions, setQ] = useState([
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      title: "How to rent a place in stratford",
-      category: "Accommodation",
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      id: "12-32",
-    },
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      category: "Graduate Route Visa",
-      id: "12-32gqhas32",
-      title: "How to exchange international car liscence",
-    },
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      category: "Graduate Route Visa",
-      id: "12-3232",
-      title: "How to rent a place in stratford",
-    },
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      category: "Graduate Route Visa",
-      id: "12-3qds232",
-      title: "How to exchange international car liscence",
-    },
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      category: "Accommodation",
-      id: "12-32asf32",
-      title: "How to rent a place in stratford",
-    },
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-      category: "Graduate Route Visa",
-      id: "12-32vadv32",
-      title: "How to exchange international car liscence",
-    },
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      captions: "12313213",
-      category: "other",
-      id: "12-3as232",
-      title: "How to rent a place in stratford",
-    },
-    {
-      user: {
-        first_name: "Jay",
-        last_name: "Chou",
-        profile_image:
-          "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-      },
-      captions: "12313213",
-      category: "other",
-      id: "12-323231",
-      title: "How to exchange international car liscence",
-    },
-  ]);
+  const [questions, setQ] = useState([]);
 
   function select(tag) {
     setFilter({
@@ -133,16 +22,30 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
       sele: tag,
     });
   }
+
+  useEffect(() => {
+    getQuestionListApi().then((res) => {
+      setQ(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
   return (
     <div className={topics.container}>
-      <CreatePost setQ={setQ} questions={questions} filter={filter} setFilter={setFilter} />
+      <CreatePost
+        setQ={setQ}
+        questions={questions}
+        filter={filter}
+        setFilter={setFilter}
+      />
       <div className={topics.filter}>
         {filter.options.map((op) => (
           <div
             key={`tag_${op}`}
             title={op}
-            className={`${topics.tag} ${filter.sele === op ? topics.selected : ""
-              }`}
+            className={`${topics.tag} ${
+              filter.sele === op ? topics.selected : ""
+            }`}
             onClick={() => select(op)}
           >
             {op}
@@ -166,25 +69,21 @@ export function CreatePost({ setQ, questions, filter, setFilter }) {
   const [text, setText] = useState({
     title: "",
     captions: "",
+    category: "",
   });
   const [open, set] = useState(false);
   const handle = (e) => {
     let name = e.target.name;
     let value = e.target.value;
     setText({ ...text, [name]: value });
-
   };
   function post() {
-    createQuestionApi(text).then(()=>{
-
-    })
-    setQ([
-      {
-        captions: text.captions,
-        title: text.title,
-      },
-      ...questions,
-    ]);
+    console.log(text)
+    createQuestionApi(text).then(() => {
+      getQuestionListApi().then((res)=>{
+        setQ(res.data);
+      });
+    });
     setText({
       title: "",
       captions: "",
@@ -207,7 +106,12 @@ export function CreatePost({ setQ, questions, filter, setFilter }) {
           value={text.title}
           onChange={handle}
         />
-        <select className="form-select form-select-sm" onChange={handle} name="categroy" aria-label="Default select example">
+        <select
+          className="form-select form-select-sm"
+          onChange={handle}
+          name="category"
+          aria-label="Default select example"
+        >
           {/* <option selected></option> */}
           {filter.options.map((option) => (
             <option value={option}>{option}</option>
@@ -238,7 +142,10 @@ export function Topic({ topic }) {
     <div className={topics.topic}>
       <div className={topics.title}>
         {/* <AiOutlineQuestionCircle /> */}
-        <div className={topics.avatar} title={`${topic.user.first_name} ${topic.user.last_name}`}>
+        <div
+          className={topics.avatar}
+          title={`${topic.user.first_name} ${topic.user.last_name}`}
+        >
           <img
             src={topic.user.profile_img}
             alt={`${topic.user.first_name} ${topic.user.last_name}`}
@@ -252,7 +159,7 @@ export function Topic({ topic }) {
       </div>
 
       <div className={`${topics.captions} ${!open ? topics.open : ""}`}>
-        {topic.captions}
+        {topic.content}
       </div>
     </div>
   );
