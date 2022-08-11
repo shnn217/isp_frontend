@@ -106,14 +106,9 @@ export function CreatePost({ setQ, questions, filter, setFilter }) {
           value={text.title}
           onChange={handle}
         />
-        <select
-          className="form-select form-select-sm"
-          onChange={handle}
-          name="category"
-          aria-label="Default select example"
-        >
+        <select className="form-select form-select-sm" onChange={handle} name="category" aria-label="Default select example">
           {/* <option selected></option> */}
-          {filter.options.map((option) => (
+          {filter.options.map((option) => option==='ALL'?null:  (
             <option value={option}>{option}</option>
           ))}
         </select>
