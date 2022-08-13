@@ -11,6 +11,7 @@ import {
 import { MdForum } from "react-icons/md";
 import { useState } from "react";
 import BlankUser from "../resource/image/blank-profile-picture.png";
+import { logoutApi } from "../api/loginApi";
 
 function Header(props) {
   const [open, set] = useState(false);
@@ -21,6 +22,14 @@ function Header(props) {
     e.preventDefault();
     // console.log(e.target.search.value)
     navigate(`/profile/search?name=${e.target.search.value}`);
+  }
+
+  function logout(){
+    let refreshToken = localStorage.getItem('refresh_token')
+    logoutApi(refreshToken).then(()=>{
+      localStorage.clear()
+      navigate('/login')
+    })
   }
 
   return (
@@ -57,7 +66,7 @@ function Header(props) {
                 <AiOutlineQuestionCircle />
                 FAQ
               </Link>
-              <Link to="/login" className={`${header.logout} ${header.row}`}>
+              <Link to="/login" className={`${header.logout} ${header.row}`} onClick={()=>logout()}>
                 <AiOutlineLogout />
                 Logout
               </Link>

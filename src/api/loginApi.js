@@ -31,3 +31,17 @@ export async function profileInfoApi (id) {
         throw error;
     }
 }
+
+export async function logoutApi(props) {
+    try {
+        const response = await axiosInstance.post('/logout/', {
+            refresh_token: props
+        });
+        
+        
+        
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
