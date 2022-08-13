@@ -44,6 +44,7 @@ function Homepage({ user }) {
           </div>
           <div className={classes.right}>
             <Recommendation />
+            <br></br>
             <DepRecommendation />
           </div>
         </div>
