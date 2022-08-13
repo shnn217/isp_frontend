@@ -55,7 +55,7 @@ function Header(props) {
               </Link>
               <Link to="/F&Q" className={header.row}>
                 <AiOutlineQuestionCircle />
-                F&Q
+                FAQ
               </Link>
               <Link to="/login" className={`${header.logout} ${header.row}`}>
                 <AiOutlineLogout />

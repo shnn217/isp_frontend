@@ -3,64 +3,76 @@ import { useState, useEffect } from "react";
 import topics from "../../style/pages/Topics.module.scss";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Comment, AddComment } from "./POST";
-import { createQuestionCommentApi, getQuestionCommentListApi } from "../../api/commentApi";
+import {
+  createQuestionCommentApi,
+  getQuestionCommentListApi,
+} from "../../api/commentApi";
+import { getQuestionDetailApi } from "../../api/questionsApi";
 export default function TopicsList() {
   const params = useParams();
+  let id = params.tid;
   const [question, setQ] = useState({
     user: {
-      first_name: "Jay",
-      last_name: "Chou",
-      id: "qweqwe",
-      profile_image:
-        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
+      first_name: "",
+      last_name: "",
+      id: "",
+      profile_img: "",
     },
-    captions: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem.`,
-    type: "visa",
-    id: "12-32vadv32",
-    title: "How to exchange international car liscence",
+    content: "",
+    category: "",
+    id: "",
+    title: "",
   });
+
+  useEffect(() => {
+    getQuestionDetailApi(id).then((res) => {
+      setQ(res.data);
+    });
+  }, []);
 
   return (
     <div className={topics.container}>
       <div className={topics.content}>
-        <Topic topic={question} />
+        <Topic topic={question} setTopic={setQ} questionId={id}/>
       </div>
     </div>
   );
 }
 
-export function Topic({ topic }) {
+export function Topic({ topic, setTopic, questionId }) {
   const [open, setOpen] = useState(true);
   const [comment, setComment] = useState([]);
   const [text, setText] = useState("");
   const User = JSON.parse(localStorage.getItem("User"));
-  const [data, setData] = useState({...topic})
+  
+  
+
+  useEffect(() => {
+    if(questionId){
+      getQuestionCommentListApi(questionId).then((res) => {
+        console.log(res.data);
+        setComment(res.data);
+      });
+    }
+    
+  }, []);
 
   function addcomment(e) {
     e.preventDefault();
-    createQuestionCommentApi(data, text).then((res)=>{
-      console.log(res.data)
-      setComment([{user:res.data.user,
-        captions:res.data.comment},...comment])
-    }).then(()=>{
-      getQuestionCommentListApi(data.id).then((respond)=>{
-        setComment(respond.data)
+    createQuestionCommentApi(topic, text)
+      .then((res) => {
+        console.log(res.data);
+        setComment([
+          { user: res.data.user, captions: res.data.comment },
+          ...comment,
+        ]);
       })
-    })
-    // setComment([
-    //   {
-    //     user: {
-    //       name: User.name,
-    //       image: User.image,
-    //       jobtitle: User.jobtitle,
-    //     },
-    //     captions: text,
-    //   },
-    //   ...comment,
-    // ]);
+      .then(() => {
+        getQuestionCommentListApi(topic.id).then((respond) => {
+          console.log(respond);
+          setComment(respond.data);
+        });
+      });
     setText("");
   }
 
@@ -77,20 +89,16 @@ export function Topic({ topic }) {
         <Link
           to={
             "/profile/" +
-            topic.user.id +
-            "?name=" +
-            topic.user.first_name +
-            "&image=" +
-            topic.user.profile_img
+            topic.user.id
           }
           className={topics.author}
         >
           <div className={topics.avatar}>
-            <img src={topic.user.profile_image} alt="" />
+            <img src={topic.user.profile_img} alt={topic.user.first_name} />
           </div>
           {topic.user.first_name} {topic.user.last_name}
         </Link>
-        {topic.comment}
+        {topic.content}
       </div>
       <div className={`${topics.comments}`}>
         <AddComment text={text} setText={setText} addcomment={addcomment} />

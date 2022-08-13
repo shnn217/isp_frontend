@@ -9,55 +9,66 @@ import {
   FcLikePlaceholder,
   FcShare,
 } from "react-icons/fc";
-import { createLikePostApi, getUserLikeStatusApi } from "../../api/followLikeSuggestApi";
+import {
+  createLikePostApi,
+  getUserLikeStatusApi,
+} from "../../api/followLikeSuggestApi";
 import { getPostDetailApi } from "../../api/postsApi";
 import { useEffect } from "react";
-import { createPostCommentApi, getPostCommentListApi } from "../../api/commentApi";
+import {
+  createPostCommentApi,
+  getPostCommentListApi,
+} from "../../api/commentApi";
 
 export default function POST({ p }) {
   const [like, setLike] = useState(false);
-  const [open,set]= useState(false)
-  const User = JSON.parse(localStorage.getItem('User'))
-  const [comment,setComment] = useState([])
-  const [text,setText] =useState('')
-  const [data, setData] = useState({...p})
-  
-  useEffect(()=>{
-    getUserLikeStatusApi(data.id).then((res)=>{
-      setLike(res.data)
-    })
-  },[])
+  const [open, set] = useState(false);
+  const User = JSON.parse(localStorage.getItem("User"));
+  const [comment, setComment] = useState([]);
+  const [text, setText] = useState("");
+  const [data, setData] = useState({ ...p });
 
-  useEffect(()=>{
-    if(open){
-      getPostCommentListApi(data.id).then((res)=>{
-        console.log(res.data)
-        setComment(res.data)
-      })
+  useEffect(() => {
+    getUserLikeStatusApi(data.id).then((res) => {
+      if (res.data) {
+        setLike(res.data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      getPostCommentListApi(data.id).then((res) => {
+        console.log(res.data);
+        setComment(res.data);
+      });
     }
-  },[open])
-  
+  }, [open]);
 
   function submitLike() {
-    createLikePostApi(data).then(()=>{
+    createLikePostApi(data).then(() => {
       setLike(!like);
-      getPostDetailApi(data.id).then((res)=>{
-        setData(res.data)
-      })
-    })
+      getPostDetailApi(data.id).then((res) => {
+        setData(res.data);
+      });
+    });
   }
-  
-  function addcomment (e) {
-    e.preventDefault()
-    createPostCommentApi(data, text).then((res)=>{
-      console.log(res.data)
-      setComment([{user:res.data.user,
-        captions:res.data.comment},...comment])
-    }).then(()=>{
-      getPostCommentListApi(data.id).then((respond)=>{
-        setComment(respond.data)
+
+  function addcomment(e) {
+    e.preventDefault();
+    createPostCommentApi(data, text)
+      .then((res) => {
+        console.log(res.data);
+        setComment([
+          { user: res.data.user, captions: res.data.comment },
+          ...comment,
+        ]);
       })
-    })
+      .then(() => {
+        getPostCommentListApi(data.id).then((respond) => {
+          setComment(respond.data);
+        });
+      });
     // setComment([{
     //   user:{
     //     name:User.first_name,
@@ -66,15 +77,13 @@ export default function POST({ p }) {
     //   },
     //   captions:text
     // },...comment])
-    setText('')
+    setText("");
   }
 
   return (
-    <div className={post.post} key={`post_${p.id}`}>
+    <div className={post.post} key={`post_${p.id}`} id={p.id}>
       <div className={post.user}>
-        <Link
-          to={`/profile/${p.id}?name=${p.user.firs_name}&image=${p.user.profile_img}`}
-        >
+        <Link to={`/profile/${p.user.id}`}>
           <img
             src={
               data.user.profile_img !== "empty"

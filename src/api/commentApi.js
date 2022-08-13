@@ -36,12 +36,12 @@ export async function createPostCommentApi(props, text) {
     }
 }
 
-export async function createQuestionCommentApi(props) {
+export async function createQuestionCommentApi(props, text) {
 
     try {
         const response = await axiosInstance.post('/question_comment/',{
-            post: props,
-            comment: props.comment,
+            question: props,
+            comment: text,
         });
     
         return response;

@@ -7,6 +7,7 @@ import {
   Recommendation,
   Savequestions,
   CreatePost,
+  DepRecommendation,
 } from "./Home";
 import topics from "../style/pages/Topics.module.scss";
 import { AiOutlineQuestionCircle, AiFillCaretDown } from "react-icons/ai";
@@ -48,6 +49,7 @@ function Topicspage({ user }) {
           </div>
           <div className={classes.right}>
             <Recommendation />
+            <DepRecommendation />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ export default function Routing() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Portal user={user} serUser={setUser} />}>
+        <Route path="/" element={<Portal user={user} setUser={setUser} />}>
           <Route index element={<Home user={user} />} />
           <Route  path={"Setting"} element={<Setting user={user} setUser={setUser} />} />
           <Route path={"login"}>
@@ -41,7 +41,7 @@ export default function Routing() {
             <Route path="me" element={<Profile user={user} />} />
             <Route path=":pid" element={<Profile user={user} />} />
           </Route>
-          <Route path={"topics"} element={<Topics user={user} serUser={setUser} />}>
+          <Route path={"topics"} element={<Topics user={user} setUser={setUser} />}>
             <Route index element={<TopicsList  user={user}/>} />
             <Route path=":tid" element={<TopicView user={user} />} />
           </Route>

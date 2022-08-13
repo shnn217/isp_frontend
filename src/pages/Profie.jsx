@@ -1,8 +1,8 @@
-import { Link, useLocation,useParams } from "react-router-dom";
+import { Link, Navigate, useLocation,useNavigate,useParams } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import post from "../style/component/Post.module.scss";
 import classes from "../style/pages/Home.module.scss";
-import { Profile, Recommendation, Savequestions, CreatePost } from './Home';
+import { Profile, Recommendation, DepRecommendation, Savequestions, CreatePost } from './Home';
 import POST from "./component/POST";
 import {getOtherUserPostsApi, getPostsApi, getSelfPostsApi} from "../api/postsApi";
 import { profileInfoApi } from "../api/profileApi";
@@ -11,6 +11,7 @@ function Profilepage({ user }) {
   let location = useLocation()
   let params = useParams()
   let id = params.pid
+  let navigate = useNavigate()
   const ProfilePage = !location.pathname.includes('me') && location.pathname.includes('profile')
   const [profile, set] = useState(ProfilePage?{
     name: location.search?decodeURI(location.search.split('&')[0].replace('?name=','')):'Allen Won',
@@ -24,32 +25,16 @@ function Profilepage({ user }) {
     location: "London, West Midlands",
     image: location.search?location.search.split('&')[1].replace('image=',''):'https://i.pinimg.com/564x/99/0b/14/990b1498c2da7fca661b81187f099890.jpg',
   }:user);
-  const questions = [
-    {
-      title: "How to rent a place in stratford",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-    {
-      title: "How to rent a place in stratford",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-    {
-      title: "How to rent a place in stratford",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-    {
-      title: "How to rent a place in stratford",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-  ];
+  
+  const User = JSON.parse(localStorage.getItem('User'))
+  
+  useEffect(()=>{
+    if(Number(id)===User.user){
+      console.log('test test test')
+      navigate('/profile/me')
+    }
+  },[location])
+
   console.log(location)
   const [posts, setPosts] = useState(ProfilePage?[]:[]);
 
@@ -89,16 +74,17 @@ function Profilepage({ user }) {
         <div className={classes.con}>
           <div className={classes.left}>
             <Profile user={user} profile={profile} />
-            <Savequestions questions={questions} />
+            {/* <Savequestions questions={questions} /> */}
           </div>
           <div className={classes.modal}>
             {!location.pathname.includes('me') && location.pathname.includes('profile') ? null : <CreatePost user={user} setPosts={setPosts} posts={posts} />}
             {posts.map((p) => (
-              <POST p={p} />
+              <POST p={p} key={`post_${p.id}`}/>
             ))}
           </div>
           <div className={classes.right}>
             <Recommendation />
+            <DepRecommendation />
           </div>
         </div>
       </div>

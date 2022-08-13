@@ -11,14 +11,12 @@ export async function getFollowCountApi() {
     }
 }
 
-export async function createFollowCountApi(props) {
+export async function createFollowCountApi(user, props) {
 
     try {
         const response = await axiosInstance.post('/num_follow/',{
-            follower: props.follower,
-            user: {
-                id: props.user.id
-            }
+            follower: user.user,
+            user: props.user,
         });
     
         return response;
@@ -66,6 +64,28 @@ export async function getUserLikeStatusApi(id) {
 
     try {
         const response = await axiosInstance.get('/num_like/' + id);
+    
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getUserFollowStatusApi(id) {
+
+    try {
+        const response = await axiosInstance.get('/num_follow/' + id);
+    
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getUserSearchApi(name) {
+
+    try {
+        const response = await axiosInstance.get('/user_search/' + name);
     
         return response;
     } catch (error) {

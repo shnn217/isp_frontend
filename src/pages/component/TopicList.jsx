@@ -69,7 +69,7 @@ export function CreatePost({ setQ, questions, filter, setFilter }) {
   const [text, setText] = useState({
     title: "",
     captions: "",
-    category: "",
+    category: "Accommodation",
   });
   const [open, set] = useState(false);
   const handle = (e) => {

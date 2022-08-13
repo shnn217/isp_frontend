@@ -4,6 +4,8 @@ import cla from "../style/pages/Profile.module.scss";
 import classes from "../style/pages/Home.module.scss";
 import { Profile } from "./Home";
 import POST from "./component/POST";
+import { useEffect } from "react";
+import { createFollowCountApi, getUserSearchApi } from "../api/followLikeSuggestApi";
 
 function Homepage({ user }) {
   const navigate = useNavigate();
@@ -21,62 +23,23 @@ function Homepage({ user }) {
     image:
       "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
   });
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      first_name: "Jay",
-      last_name: "Chou",
-      jobtitle: "Sales",
-      bio: "I am idiot",
-      profile_image:
-        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-    },
-    {
-      id: 12,
-      first_name: "Jaime",
-      last_name: "Chen",
-      jobtitle: "Sales",
-      bio: "I am idiot",
-      profile_image:
-        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-    },
-    {
-      id: 1414,
-      first_name: "Vivian",
-      last_name: "Chen",
-      jobtitle: "Sales",
-      bio: "I am idiot",
-      profile_image:
-        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-    },
-    {
-      id: 1311,
-      first_name: "Drake",
-      last_name: "Lin",
-      jobtitle: "Sales",
-      bio: "I am idiot",
-      profile_image:
-        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-    },
-    {
-      id: 321,
-      first_name: "Eric",
-      last_name: "Lin",
-      jobtitle: "Sales",
-      bio: "I am idiotqweqweqweqweqweqweqweqwe qwqwesqweqewq",
-      profile_image:
-        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-    },
-    {
-      id: 115,
-      first_name: "Jackson",
-      last_name: "Wang",
-      jobtitle: "Sales",
-      bio: "I am idiot",
-      profile_image:
-        "https://i.pinimg.com/564x/e9/9e/a8/e99ea84b3fd0abaa0f1ae8a963acd68b.jpg",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+  const User = JSON.parse(localStorage.getItem('User'))
+
+  console.log(decodeURI(location.search.split('&')[0].replace('?name=','')))
+  
+  useEffect(()=>{
+    getUserSearchApi(decodeURI(location.search.split('&')[0].replace('?name=',''))).then((res)=>{
+      console.log(res.data)
+      setUsers(res.data)
+    })
+  },[])
+
+  // function follow() {
+  //   createFollowCountApi(User, users).then((res)=>{
+      
+  //   })
+  // }
 
   const text = location.search.split("=")[1].toLowerCase();
   function go(id) {
@@ -87,7 +50,7 @@ function Homepage({ user }) {
       <div className={classes.content}>
         <div className={classes.con}>
           <div className={classes.left}>
-            <Profile user={user} profile={profile} />
+            {/* <Profile user={user} profile={profile} /> */}
             {/* <Savequestions questions={questions} /> */}
           </div>
           <div className={classes.modal}>
@@ -97,32 +60,31 @@ function Homepage({ user }) {
                   f.first_name.toLowerCase().includes(text) ||
                   f.last_name.toLowerCase().includes(text)
               ).length > 0 ? (
-                users
-                  .filter(
+                users.filter(
                     (f) =>
                       f.first_name.toLowerCase().includes(text) ||
                       f.last_name.toLowerCase().includes(text)
                   )
                   .map((user) => (
                     <div className={cla.result}>
-                      <div className={cla.avatar} onClick={() => go(user.id)}>
+                      <div className={cla.avatar} onClick={() => go(user.user)}>
                         <img
-                          onClick={() => go(user.id)}
-                          src={user.profile_image}
-                          alt=""
+                          onClick={() => go(user.user)}
+                          src={user.profile_img != "empty" ? user.profile_img : "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg"}
+                          alt={user.first_name}
                         />
                       </div>
                       <div className={cla.info}>
                         <div className={cla.title}>
-                          <div className={cla.name} onClick={() => go(user.id)}>
+                          <div className={cla.name} onClick={() => go(user.user)}>
                             {user.first_name} {user.last_name}
                           </div>
-                          <div className={cla.jobtitle}>{user.jobtitle}</div>
+                          <div className={cla.jobtitle}>{user.title}</div>
                         </div>
 
                         <div className={cla.bio}>{user.bio}</div>
                       </div>
-                      <div className={`${cla.follow} custom-btn`}>Follow</div>
+                      <div className={`${cla.follow} custom-btn`} >Follow</div>
                     </div>
                   ))
               ) : (

@@ -62,7 +62,7 @@ function CheckPoint({ user }) {
   //假如是"/login" or "/login/..."都可以自由進出
   if (!location.pathname.toLowerCase().includes("login")) {
     //檢查登入
-    if (user.first_name.length > 0) {
+    if (user.user > 0) {
       return <Outlet user={user} />;
     } else {
       return <Navigate to={"/login"} />;

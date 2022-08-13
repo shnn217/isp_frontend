@@ -1,44 +1,23 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import post from "../style/component/Post.module.scss";
 import classes from "../style/pages/Home.module.scss";
 import { IoEarth } from "react-icons/io5";
-import { FaPlus, FaRegCommentAlt, FaLinkedin } from "react-icons/fa";
+import { FaPlus, FaRegCommentAlt, FaLinkedin, FaMinus } from "react-icons/fa";
 import { AiFillHeart, AiOutlineUser } from "react-icons/ai";
 import { createPostApi, getPostsApi } from "../api/postsApi";
 import { FcImageFile } from "react-icons/fc";
 import POST from "./component/POST";
 import { useEffect } from "react";
-import { getUniSuggestionApi } from "../api/followLikeSuggestApi";
+import {
+  createFollowCountApi,
+  getDepSuggestionApi,
+  getUniSuggestionApi,
+  getUserFollowStatusApi,
+} from "../api/followLikeSuggestApi";
 
 function Homepage({ user }) {
   const [profile, set] = useState({});
-  const questions = [
-    {
-      title: "How to apply PSW visa",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-    {
-      title: "How to apply PSW visa",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-    {
-      title: "How to apply PSW visa",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-    {
-      title: "How to apply PSW visa",
-    },
-    {
-      title: "How to exchange international car liscence",
-    },
-  ];
 
   const [posts, setPosts] = useState([]);
 
@@ -55,16 +34,17 @@ function Homepage({ user }) {
         <div className={classes.con}>
           <div className={classes.left}>
             <Profile user={user} profile={profile} setProfile={set} />
-            <Savequestions questions={questions} />
+            {/* <Savequestions questions={questions} /> */}
           </div>
           <div className={classes.modal}>
             <CreatePost user={user} setPosts={setPosts} posts={posts} />
             {posts.map((p) => (
-              <POST p={p} />
+              <POST p={p} key={`post_${p.id}`}/>
             ))}
           </div>
           <div className={classes.right}>
             <Recommendation />
+            <DepRecommendation />
           </div>
         </div>
       </div>
@@ -120,9 +100,13 @@ export function CreatePost({ user, setPosts, posts }) {
   }
 
   function submit() {
-    createPostApi(data).then(() => {
+    createPostApi(data).then((respond) => {
+      console.log(respond);
+      set({ caption: "", image: "" });
+      // setPosts([])
       getPostsApi().then((res) => {
-        setPosts(res.data);
+        console.log(res.data)
+        setPosts(res.data.map((p)=>(p)))
       });
     });
   }
@@ -144,7 +128,7 @@ export function CreatePost({ user, setPosts, posts }) {
         <textarea
           placeholder="Type something here..."
           // className="form-control"
-          value={data.captions}
+          value={data.caption}
           id="exampleFormControlTextarea1"
           rows="2"
           name="caption"
@@ -185,10 +169,27 @@ export function CreatePost({ user, setPosts, posts }) {
 
 export function Profile({ profile, user, set }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [follow, setFollow] = useState(false);
   const ProfilePage =
     !location.pathname.includes("me") && location.pathname.includes("profile");
   const info = ProfilePage ? profile : user;
-  useEffect(() => {}, []);
+
+  console.log();
+  useEffect(() => {
+    if (ProfilePage) {
+      getUserFollowStatusApi(location.pathname.split("/")[2]).then((res) => {
+        setFollow(res.data);
+      });
+    }
+  }, []);
+
+  function createFollow() {
+    createFollowCountApi(user, profile).then((res) => {
+      console.log(res);
+      setFollow(!follow);
+    });
+  }
 
   return (
     <div className={classes.profile}>
@@ -215,11 +216,20 @@ export function Profile({ profile, user, set }) {
           </Link>
         )}
         {ProfilePage ? (
-          <div className={`${classes.follow} custom-btn`}>
-            <FaPlus />
-            FOLLOW
+          <div
+            className={`${classes.follow} custom-btn`}
+            onClick={() => createFollow()}
+          >
+            {follow ? (
+              <>UNFOLLOW</>
+            ) : (
+              <>
+                <FaPlus />
+                <>FOLLOW</>
+              </>
+            )}
           </div>
-        ) : null}
+        ) : <div className={`${classes.setting} custom-btn`} onClick={()=> navigate('/setting')}>Account Setting</div>}
       </div>
       <div className={classes.info}>
         <h4>
@@ -292,15 +302,70 @@ export function Recommendation() {
   useEffect(() => {
     GetList();
   }, []);
- 
+
   return (
     <div className={`${classes.smallModal} ${open ? classes.open : ""}`}>
-      <h4>Social Connection</h4>
+      <h4>Uni Connection</h4>
+      <h8>
+        <i>People go to the same Uni</i>
+      </h8>
       {connection
         .filter((a, index) => (open ? true : index < 4))
         .map((q, index) => (
           <Link
-            to={`/profile/${q.user}?name=${q.first_name}&image=${q.profile_img}`}
+            to={`/profile/${q.user}`}
+            className={`${classes.row} ${classes.row2}`}
+            key={`quse_${index}`}
+            title={q.title}
+          >
+            <img
+              src={
+                q.profile_img !== "empty"
+                  ? q.profile_img
+                  : "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg"
+              }
+              alt={q.first_name}
+            />
+            {/* <AiOutlineUser size={32} /> */}
+            <div>
+              <div>
+                {q.first_name} {q.last_name}
+              </div>
+              <div>{q.title}</div>
+            </div>
+          </Link>
+        ))}
+      <div className={classes.morebtn} onClick={() => set(!open)}>
+        {open ? "Hide" : "More"}
+      </div>
+    </div>
+  );
+}
+
+export function DepRecommendation() {
+  const [open, set] = useState(false);
+  const [connection, setConnection] = useState([]);
+
+  function GetList() {
+    getDepSuggestionApi().then((res) => {
+      setConnection(res.data);
+    });
+  }
+  useEffect(() => {
+    GetList();
+  }, []);
+
+  return (
+    <div className={`${classes.smallModal} ${open ? classes.open : ""}`}>
+      <h4>Dep Connection</h4>
+      <h8>
+        <i>People study in the same Dep</i>
+      </h8>
+      {connection
+        .filter((a, index) => (open ? true : index < 4))
+        .map((q, index) => (
+          <Link
+            to={`/profile/${q.user}`}
             className={`${classes.row} ${classes.row2}`}
             key={`quse_${index}`}
             title={q.title}

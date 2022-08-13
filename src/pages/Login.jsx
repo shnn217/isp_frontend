@@ -4,7 +4,7 @@ import Image from "../resource/image/ISPlogin.png";
 import { useState, useCallback } from "react";
 import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import loginApi ,{profileInfoApi}from "../api/loginApi";
+import loginApi, { profileInfoApi } from "../api/loginApi";
 
 function Login({ user, setUser }) {
   const User = localStorage.getItem("Rememberme");
@@ -35,12 +35,7 @@ function Login({ user, setUser }) {
     window.location = `${linkedinAuthUrl}?${urlParams}&scope=r_liteprofile%20r_emailaddress`;
   }, []);
 
-  
-
   function submit(e) {
-    //第一步先檢查我設計定的唯一帳密是否正確
-
-    //remember me的功能判斷
     if (remember) {
       localStorage.setItem("Rememberme", JSON.stringify(data));
     } else {
@@ -48,33 +43,24 @@ function Login({ user, setUser }) {
     }
     loginApi(data)
       .then((res) => {
-        profileInfoApi().then((respond)=>{
-          console.log(respond.data,typeof(respond));
-         
-            localStorage.setItem(
-              "User",
-              JSON.stringify(respond.data)
-            );
-            //把資訊也順便丟進去變數裡面
+        profileInfoApi()
+          .then((respond) => {
+            console.log(respond.data, typeof respond);
+            localStorage.setItem("User", JSON.stringify(respond.data));
+
             setUser({
               ...respond.data,
-              
-              profile_img: respond.data.profile_img!=="empty"?respond.data.profile_img:
-                "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
+              profile_img:
+                respond.data.profile_img !== "empty"
+                  ? respond.data.profile_img
+                  : "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
             });
-            navigate("/setting");
-          
-          
-        }).catch(()=>{})
-        // navigate("/setting");
+            console.log("hiiiiiiii");
+            navigate("/setting", { replace: true });
+          })
+          .catch(() => {});
       })
       .catch(() => {});
-
-    //更新登入流程:假如這人登入成功,把資訊丟進localstorage,用來判斷有沒有登入過
-    //因為現在沒有token所以先這樣用
-    
-    //把畫面倒回首頁
-    // navigate("/");
   }
 
   return (
