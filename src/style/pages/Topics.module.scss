@@ -6,7 +6,8 @@
    position: relative;
    background:#fff;
    border-radius: 1rem;
-   padding: 1rem
+   padding: 1rem;
+   min-height: 500px;
    // display: flex;
    // justify-content: flex-end
    // background-color: navy
@@ -220,5 +221,31 @@
       }
      
    }
-   
+  
+}
+.FAQModal{
+   // width:1200px;
+   .FAQBlock{
+      width:600px;
+      .block{
+         margin:0 0 2rem 0;
+      }
+      li{
+         font-weight: 550;
+         color:$PrimaryDark;
+      }
+   }
+}
+.new{
+  margin :1rem;
+  padding:0 1rem;
+}
+
+.FAQtitle{
+   font-size:2rem;
+   font-weight: 550;
+   width:100%;
+   text-align: center;
+   margin: 0 auto 1rem;
+
 }

@@ -15,6 +15,7 @@ import Topics from './pages/Topics'
 import TopicsList from "./pages/component/TopicList";
 import TopicView from "./pages/component/TopicView";
 import SearchProfile from './pages/SearchProfile'
+import FAQ from './pages/FAQ'
 import "./style/Global.scss";
 
 export default function Routing() {
@@ -45,7 +46,7 @@ export default function Routing() {
           <Route index element={<Home user={user} />} />
           <Route  path={"Setting"} element={<Setting user={user} setUser={setUser} />} />
           <Route path={"login"}>
-            <Route index element={<Login setUser={setUser} />} />
+            <Route index element={<Login setUser={setUser} setModal={setModal}/>} />
             <Route path="signup" element={<SignUp user={user} modal={modal} setModal={setModal}/>} />
           </Route>
           <Route path={"profile"}>
@@ -57,6 +58,9 @@ export default function Routing() {
           <Route path={"topics"} element={<Topics user={user} serUser={setUser} />}>
             <Route index element={<TopicsList  user={user}/>} />
             <Route path=":tid" element={<TopicView user={user} />} />
+          </Route>
+          <Route path={"FAQ"} element={<FAQ user={user} serUser={setUser} />}>
+           
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

@@ -8,7 +8,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 
 
 
-function Login({ user, setUser }) {
+function Login({ user, setUser,setModal }) {
   const User = localStorage.getItem("Remeberme");
   const [show, setShow] = useState(false);
   const [remeber, setRe] = useState(User ? true : false);
@@ -86,7 +86,10 @@ function Login({ user, setUser }) {
       //把畫面倒回首頁
       navigate("/");
     } else {
-      alert("Wrong username or password");
+      setModal({
+        open:true,
+        title:"ERROR",
+        text:"Wrong username or password"});
     }
   }
 

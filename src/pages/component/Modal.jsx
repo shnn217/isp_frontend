@@ -21,6 +21,8 @@ function ModalC({ modal, setModal }) {
             Close
           </Button>
           <Button
+          //  假如沒有todo,就不用顯示這個了
+            style={{display:modal.todo?"":'none'}}
             variant="primary"
             onClick={() => {
               if (modal.todo) {
