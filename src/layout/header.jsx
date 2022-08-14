@@ -52,7 +52,7 @@ function Header(props) {
                 <AiOutlineSetting />
                 Setting
               </Link>
-              <Link to="/F&Q" className={header.row}>
+              <Link to="/FAQ" className={header.row}>
                 <AiOutlineQuestionCircle />
                 F&Q
               </Link>
