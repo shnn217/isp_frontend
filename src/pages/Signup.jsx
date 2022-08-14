@@ -1,10 +1,10 @@
 import classes from "../style/pages/Login.module.scss";
 import Image from "../resource/image/ISPlogin.png";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 
-function Signup({ user, setUser }) {
+function Signup({ user, setUser,modal,setModal }) {
   const User = localStorage.getItem("Remeberme");
   const [show, setShow] = useState(false);
   const [remeber, setRe] = useState(User ? true : false);
@@ -17,7 +17,7 @@ function Signup({ user, setUser }) {
     let name = e.target.name;
     set({ ...data, [name]: e.target.value });
   }
-
+  
   function submit(e) {
     //第一步先檢查我設計定的唯一帳密是否正確
     if (data.username === "shnn217" && data.password === "password") {
@@ -51,6 +51,33 @@ function Signup({ user, setUser }) {
     }
   }
 
+  function DemoModal () {
+    //故意做一個可以demo怎麼用法
+    //假如你只要打開而可以就可以用這樣,以此類推：
+    //setModal({...modal,open:true});
+
+    setModal({
+      open:true,
+      title:"你確定要註冊嗎？",
+      text:'內容有錯嗎？',
+      //把原本那個submit function 在user按完確認後再使用
+      todo:submit
+    })
+    //假如是ＡＰＩ就是這樣?
+    // createAccountAPI().then((res)=>{
+    //   if(res.status===200){
+    //     setSthing({...res});
+    //   }
+    //   if(res.status>399){
+    //     setModal({
+    //       open:true,
+    //       title:'ERROR',
+    //       text:'The email has been regist already..',
+    //     })
+    //   }
+      
+    // })
+  }
 
   return (
     <div className={`${classes.container} `}>
@@ -116,7 +143,7 @@ function Signup({ user, setUser }) {
           </div>
           
           <div className={`${classes.btn} ${classes.signup}`}>
-            <button className="btn btn-danger w-100" onClick={submit}>
+            <button className="btn btn-danger w-100" onClick={DemoModal}>
              Sign up
             </button>{" "}
           </div>
