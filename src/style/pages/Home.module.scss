@@ -30,6 +30,7 @@
 .left {
    position: relative;
    // margin-top: -2rem;
+   min-width:300px;
    margin : -2rem 2rem 0 0;
    .profile{
       width: 300px;
@@ -104,7 +105,7 @@
    // border-radius: 1rem;
 }
 .right{
-   width: 300px;
+   min-width: 300px;
    position: relative;
    margin-left: 2rem;
    .recommendation{

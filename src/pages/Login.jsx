@@ -6,7 +6,7 @@ import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import loginApi, { profileInfoApi } from "../api/loginApi";
 
-function Login({ user, setUser }) {
+function Login({ user, setUser,setModal }) {
   const User = localStorage.getItem("Rememberme");
   const [show, setShow] = useState(false);
   const [remember, setRe] = useState(User ? true : false);
