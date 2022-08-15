@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import header from "../style/layout/Header.module.scss"; //JSON
 import Logo from "../resource/SVG/Logo";
 import {
@@ -7,16 +7,18 @@ import {
   AiOutlineSetting,
   AiOutlineLogout,
   AiOutlineQuestionCircle,
+  AiFillBell,
 } from "react-icons/ai";
 import { MdForum } from "react-icons/md";
 import { useState } from "react";
 
 function Header(props) {
-  const [open, set] = useState(false);
+  const [open, set] = useState('');
   const user = props.user;
+  let location = useLocation();
   let navigate = useNavigate();
 
-  function search (e){
+  function search(e) {
     e.preventDefault();
     // console.log(e.target.search.value)
     navigate(`/profile/search?name=${e.target.search.value}`);
@@ -32,14 +34,32 @@ function Header(props) {
         <AiOutlineSearch />
         <input type="text" name="search" placeholder="username" />
       </form>
-      <Link to="/topics" className={header.forum} title="Topics">
+      <Link
+        to="/topics"
+        className={`${header.headerBtn} ${
+          location.pathname.toLowerCase().includes("topics")
+            ? header.select
+            : null
+        }`}
+        title="Topics"
+      >
         <MdForum />
       </Link>
+      <div
+        title="Notification"
+        className={`${header.headerBtn} ${
+        open
+            ? header.select
+            : null
+        } ${header.noti}`}
+      >
+        <AiFillBell />
+      </div>
       {user.image ? (
         <div className={header.avatar}>
-          <img src={user.image} alt="" onClick={() => set(!open)} />
-          {open ? (
-            <div className={header.panel} onClick={() => set(!open)}>
+          <img src={user.image} alt="" onClick={() => set(open==='avatar'?'':'avatar')} />
+          {open==='avatar' ? (
+            <div className={header.panel} onClick={() => set('avatar')}>
               <Link
                 to={"/profile/me"}
                 className={`${header.name} ${header.row}`}
