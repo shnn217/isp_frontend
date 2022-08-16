@@ -67,29 +67,85 @@
   }
 }
 .headerBtn.noti{
-  right:160px;
+  right:0px;
+  top:-20px;
 }
 
 .headerBtn.select{
   color:$PrimaryDark;
   background:$Primary;
 }
-
+.notiContainer{
+  position: absolute;
+  right:160px;
+  width: 150px;
+}
+.close.notiPanel{
+  height:0px;
+  overflow: hidden;
+  padding:0rem;
+  transition:'all 0.3s ease-in-out';
+}
 .notiPanel{
   position:absolute;
-  top:60px;
+  transition:'all 0.3s ease-in-out';
+  top:35px;
   background:#fff;
+  width: 280px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding:1rem;
+  // height:300px;
+  // overflow-y:auto;
   border-radius: .5rem;
   left:-100px;
   .notiblock{
+    text-decoration:none;
+    color:rgba(0,0,0,.9);
     display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+    padding:4px;
+    cursor: pointer;
+    // width:100%;
+    &:hover{
+      background-color:$GreyLight;
+    }
     .notiAvatar{
       img {
         width:40px;
         height: 40px;
         border-radius: 50%;
       }
+      position: relative;
+      .rightCorner{
+        width: 20px;
+        height: 20px;
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        bottom: 0;
+        right:0;
+        display: flex;
+        align-items: center;
+        border-radius:40px;
+        justify-content:center;
+        background: #fff;
+        svg {
+          // padding: .25rem;
+        
+        }
+      }
      
+     
+    }
+    .notiContent{
+        margin-left:1rem;
+        div{
+          font-size:12px;
+          color:$PrimaryDark;
+          text-align:initial;
+        }
     }
   }
 }

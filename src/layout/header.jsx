@@ -9,6 +9,8 @@ import {
   AiOutlineQuestionCircle,
   AiFillBell,
 } from "react-icons/ai";
+import { FcLike } from "react-icons/fc";
+import { RiUserFollowLine } from 'react-icons/ri'
 import { MdForum } from "react-icons/md";
 import { useState } from "react";
 
@@ -24,6 +26,39 @@ function Header(props) {
     navigate(`/profile/search?name=${e.target.search.value}`);
   }
 
+  const Notification = [
+    {
+      user: {
+        id: 123,
+        name: 'Amy',
+        profile_image: 'https://i.pinimg.com/564x/bd/91/c8/bd91c815ce8ffcd514c18e77acf303b6.jpg'
+      },
+      type: 'like',
+      post_id: '1eq1023e-22-e1',
+      createIime: '',
+    },
+    {
+      user: {
+        id: 33141,
+        name: 'Bella',
+        profile_image: 'https://i.pinimg.com/564x/bd/91/c8/bd91c815ce8ffcd514c18e77acf303b6.jpg'
+      },
+      type: 'follow',
+      post_id: '',
+      createIime: '',
+    },
+    {
+      user: {
+        id: 123,
+        name: 'Arisa',
+        profile_image: 'https://i.pinimg.com/736x/18/29/2c/18292c8720be10c27c3ebea43c18b926.jpg'
+      },
+      type: 'like',
+      post_id: '1eq1023e-22-e1',
+      createIime: '',
+    },
+  ]
+
   return (
     <div className={header.header}>
       <Link to={"/"} className={header.logo}>
@@ -36,50 +71,54 @@ function Header(props) {
       </form>
       <Link
         to="/topics"
-        className={`${header.headerBtn} ${
-          location.pathname.toLowerCase().includes("topics")
+        className={`${header.headerBtn} ${location.pathname.toLowerCase().includes("topics")
             ? header.select
             : null
-        }`}
+          }`}
         title="Topics"
       >
         <MdForum />
       </Link>
-      <div className={header.notiContainer}>
-      <div
-        title="Notification"
-        onClick={()=>{
-          if(open==='noti'){
-            set(false)
-          }else{
-            set('noti')
-          }
-        }}
-        className={`${header.headerBtn} ${
-        open==='noti'
-            ? header.select
-            : null
-        } ${header.noti}`}
-      >
-        <AiFillBell />
+      <div className={`${header.notiContainer} `}>
+        <div
+          title="Notification"
+          onClick={() => {
+            if (open === 'noti') {
+              set(false)
+            } else {
+              set('noti')
+            }
+          }}
+          className={`${header.headerBtn} ${open === 'noti'
+              ? header.select
+              : null
+            } ${header.noti}`}
+        >
+          <AiFillBell />
 
-      </div>
-      <div className={header.notiPanel}>
-          <div className={header.notiblock}>
-            <div className={header.notiAvatar}>
-              <img src="https://i.pinimg.com/564x/bd/91/c8/bd91c815ce8ffcd514c18e77acf303b6.jpg" alt="" />
-            </div>
-            <div className={header.notiContent}>
-              someone like your post..
-            </div>
-          </div>
+        </div>
+        <div className={`${header.notiPanel} ${open === 'noti' ? '' : header.close}`}>
+          {Notification.map((noti) => (
+            <Link to='#' className={header.notiblock}>
+              <div className={header.notiAvatar}>
+                <div className={header.rightCorner}>{noti.type === 'like' ? <FcLike /> : <RiUserFollowLine />}</div>
+                <img src={noti.user.profile_image} alt="" />
+              </div>
+              <div className={header.notiContent}>
+                {noti.type === 'like' ? `${noti.user.name} just like your post` : `${noti.user.name} just follow you`}
+                <div>20 min ago</div>
+              </div>
+            </Link>
+          ))}
+
+
         </div>
       </div>
-   
+
       {user.image ? (
         <div className={header.avatar}>
-          <img src={user.image} alt="" onClick={() => set(open==='avatar'?'':'avatar')} />
-          {open==='avatar' ? (
+          <img src={user.image} alt="" onClick={() => set(open === 'avatar' ? '' : 'avatar')} />
+          {open === 'avatar' ? (
             <div className={header.panel} onClick={() => set('avatar')}>
               <Link
                 to={"/profile/me"}
