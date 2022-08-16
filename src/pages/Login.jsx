@@ -6,7 +6,38 @@ import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import loginApi, { profileInfoApi } from "../api/loginApi";
 
-function Login({ user, setUser,setModal }) {
+export function loginFlow(data, setUser, navigate) {
+  loginApi(data)
+    .then((res) => {
+      profileInfoApi()
+        .then((respond) => {
+          console.log(respond.data, typeof respond);
+          localStorage.setItem(
+            "User",
+            JSON.stringify({
+              ...respond.data,
+              profile_img:
+                respond.data.profile_img !== "empty"
+                  ? respond.data.profile_img
+                  : "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg"
+            })
+          );
+
+          setUser({
+            ...respond.data,
+            profile_img:
+              respond.data.profile_img !== "empty"
+                ? respond.data.profile_img
+                : "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg"
+          });
+          navigate('/setting')
+        })
+        .catch(() => {});
+    })
+    .catch(() => {});
+}
+
+function Login({ user, setUser }) {
   const User = localStorage.getItem("Rememberme");
   const [show, setShow] = useState(false);
   const [remember, setRe] = useState(User ? true : false);
@@ -14,6 +45,8 @@ function Login({ user, setUser,setModal }) {
   const [data, set] = useState(
     User !== null ? JSON.parse(User) : { username: "", password: "" }
   );
+  
+
 
   function handle(e) {
     let name = e.target.name;
@@ -41,26 +74,7 @@ function Login({ user, setUser,setModal }) {
     } else {
       localStorage.removeItem("Rememberme");
     }
-    loginApi(data)
-      .then((res) => {
-        profileInfoApi()
-          .then((respond) => {
-            console.log(respond.data, typeof respond);
-            localStorage.setItem("User", JSON.stringify(respond.data));
-
-            setUser({
-              ...respond.data,
-              profile_img:
-                respond.data.profile_img !== "empty"
-                  ? respond.data.profile_img
-                  : "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
-            });
-            console.log("hiiiiiiii");
-            navigate("/setting", { replace: true });
-          })
-          .catch(() => {});
-      })
-      .catch(() => {});
+    loginFlow(data, setUser, navigate);
   }
 
   return (

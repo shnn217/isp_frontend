@@ -1,9 +1,13 @@
 import classes from "../style/pages/Login.module.scss";
 import Image from "../resource/image/ISPlogin.png";
-import { useState ,useEffect} from "react";
+import { useState } from "react";
 import Logo from "../resource/SVG/Logo";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link, renderMatches } from "react-router-dom";
 import signupApi from "../api/signupApi";
+import loginApi, { profileInfoApi } from "../api/loginApi";
+import {loginFlow} from "./Login"; 
+
+
 
 function Signup({ user, setUser,modal,setModal }) {
   const User = localStorage.getItem("Remeberme");
@@ -12,68 +16,40 @@ function Signup({ user, setUser,modal,setModal }) {
   const navigate = useNavigate();
   const [data, set] = useState(
     User !== null ? JSON.parse(User) : { username: "", password: "" }
-  );
+  ); 
+
 
   function handle(e) {
     let name = e.target.name;
     set({ ...data, [name]: e.target.value });
   }
+
   
+
   function submit(e) {
-      
     signupApi(data)
     .then((res) => {
-  
-      navigate("/login");
+      console.log(res)
+      setModal({
+        open:true,
+        title:"Congrats!!!",
+        text:res.data['res'],
+        todo:()=>{loginFlow(data, setUser, navigate)}
     })
-    .catch(() => {});
-
-      // localStorage.setItem(
-      //   "User",
-      //   JSON.stringify({
-      //     name: "Eric Lin",
-      //     image:
-      //       "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
-      //   })
-      // );
-      // //把資訊也順便丟進去變數裡面
-      // setUser({
-      //   name: "Eric Lin",
-      //   image:
-      //     "https://i.pinimg.com/564x/e3/60/93/e3609311123e13852ee148788d955acb.jpg",
-      // });
-      //把畫面倒回首頁
-      // navigate("/");
-    }
+  })
+    .catch((error) => {
+      setModal({
+        open:true,
+        title:"Something went wrong!!!",
+        text:error.response.data['res']
+      })
+    });
+  
+}
+  
+  
   
 
-  function DemoModal () {
-    //故意做一個可以demo怎麼用法
-    //假如你只要打開而可以就可以用這樣,以此類推：
-    //setModal({...modal,open:true});
-
-    setModal({
-      open:true,
-      title:"你確定要註冊嗎？",
-      text:'內容有錯嗎？',
-      //把原本那個submit function 在user按完確認後再使用
-      todo:submit
-    })
-    //假如是ＡＰＩ就是這樣?
-    // createAccountAPI().then((res)=>{
-    //   if(res.status===200){
-    //     setSthing({...res});
-    //   }
-    //   if(res.status>399){
-    //     setModal({
-    //       open:true,
-    //       title:'ERROR',
-    //       text:'The email has been regist already..',
-    //     })
-    //   }
-      
-    // })
-  }
 
   return (
     <div className={`${classes.container} `}>
@@ -139,11 +115,11 @@ function Signup({ user, setUser,modal,setModal }) {
           </div>
           
           <div className={`${classes.btn} ${classes.signup}`}>
-            <button className="btn btn-danger w-100" onClick={DemoModal}>
+            <button className="btn btn-danger w-100" onClick={submit}>
              Sign up
             </button>{" "}
           </div>
-            <Link to="/login" className={`${classes.toolbar} ${classes.back}`}>Already have you own account?</Link>
+            <Link to="/login" className={`${classes.toolbar} ${classes.back}`}>Already have your own account?</Link>
         </div>
       </div>
 
