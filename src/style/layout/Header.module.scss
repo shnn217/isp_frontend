@@ -69,10 +69,32 @@
 .headerBtn.noti{
   right:160px;
 }
+
 .headerBtn.select{
   color:$PrimaryDark;
   background:$Primary;
 }
+
+.notiPanel{
+  position:absolute;
+  top:60px;
+  background:#fff;
+  border-radius: .5rem;
+  left:-100px;
+  .notiblock{
+    display: flex;
+    .notiAvatar{
+      img {
+        width:40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+     
+    }
+  }
+}
+
+
 .logo {
   cursor: pointer;
   width: 110px;

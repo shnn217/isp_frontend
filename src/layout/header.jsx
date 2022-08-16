@@ -45,16 +45,37 @@ function Header(props) {
       >
         <MdForum />
       </Link>
+      <div className={header.notiContainer}>
       <div
         title="Notification"
+        onClick={()=>{
+          if(open==='noti'){
+            set(false)
+          }else{
+            set('noti')
+          }
+        }}
         className={`${header.headerBtn} ${
-        open
+        open==='noti'
             ? header.select
             : null
         } ${header.noti}`}
       >
         <AiFillBell />
+
       </div>
+      <div className={header.notiPanel}>
+          <div className={header.notiblock}>
+            <div className={header.notiAvatar}>
+              <img src="https://i.pinimg.com/564x/bd/91/c8/bd91c815ce8ffcd514c18e77acf303b6.jpg" alt="" />
+            </div>
+            <div className={header.notiContent}>
+              someone like your post..
+            </div>
+          </div>
+        </div>
+      </div>
+   
       {user.image ? (
         <div className={header.avatar}>
           <img src={user.image} alt="" onClick={() => set(open==='avatar'?'':'avatar')} />
