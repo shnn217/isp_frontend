@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import topics from "../../style/pages/Topics.module.scss";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Comment, AddComment } from "./POST";
+
+
 export default function TopicsList() {
   const params = useParams();
   const [question, setQ] = useState({
@@ -21,6 +23,10 @@ optio, eaque rerum! Provident similique accusantium nemo autem.`,
     id: "12-32vadv32",
     title: "How to exchange international car liscence",
   });
+
+  useEffect(()=>{
+    console.log('test')
+  },[])
 
   return (
     <div className={topics.container}>

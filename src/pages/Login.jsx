@@ -4,7 +4,7 @@ import Image from "../resource/image/ISPlogin.png";
 import { useState, useCallback } from "react";
 import Logo from "../resource/SVG/Logo";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-
+import {ImLinkedin} from 'react-icons/im'
 
 
 
@@ -149,7 +149,9 @@ function Login({ user, setUser,setModal }) {
           </div>
           <div className={classes.div}></div>
           <div className={classes.btn}>
-            <button className="btn btn-primary" onClick={openLinkedinPage}>LinkedIn</button>{" "}
+            <button className="btn btn-primary d-flex  justify-content-center align-items-center" onClick={openLinkedinPage}>
+              <ImLinkedin className="" /><div className="mx-2"> Sign In with LinkedIn</div>
+            </button>{" "}
           </div>
           <div className={`${classes.btn} ${classes.signup}`}>
             <Link className="btn btn-danger w-100" to='/login/signup'>Sign Up</Link>{" "}
